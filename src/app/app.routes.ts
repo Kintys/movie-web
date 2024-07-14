@@ -1,3 +1,12 @@
-import { Routes } from '@angular/router';
-
-export const routes: Routes = [];
+import { Routes } from '@angular/router'
+import { HomePageComponent } from './pages/home-page/home-page.component'
+export const routes: Routes = [
+    {
+        path: '',
+        component: HomePageComponent
+    },
+    {
+        path: '**',
+        loadComponent: () => import('@page/page-not-found/page-not-found.page').then((m) => m.PageNotFoundPage)
+    }
+]

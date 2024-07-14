@@ -1,1 +1,42 @@
-<p>header works!</p>
+<header class="header">
+    <div class="header__container">
+        <a routerLink="/" class="header__logo">
+            <p-image src="https://firebasestorage.googleapis.com/v0/b/exclusive-shop-c0f66.appspot.com/o/logo%2FLayer_2.svg?alt=media&token=9c98c00a-08a2-4f5f-80ef-19230658ce9a" width="150" height="50"></p-image>
+        </a>
+
+        <div class="header__search-bar">
+            <p-iconField iconPosition="left" class="input">
+                <p-inputIcon styleClass="pi pi-search" />
+                <input type="text" pInputText placeholder="Search titles here..." />
+            </p-iconField>
+        </div>
+        <nav class="header__nav-bar">
+            <ul>
+                <li>
+                    <p>Lorem.</p>
+                </li>
+                <li>
+                    <p>Non!</p>
+                </li>
+                <li>
+                    <p>Distinctio!</p>
+                </li>
+                <li>
+                    <p>Expedita.</p>
+                </li>
+                <li>
+                    <p>In.</p>
+                </li>
+            </ul>
+        </nav>
+        <div class="header__actions">
+            <a routerLink="/">Watch list</a>
+            <p-button pButton label="Submit" class="main-button" />
+            <p-button pButton label="Submit" class="main-button main-button--bg" />
+            <div>
+                <span class="mas">MASK1</span>
+                <button id='work' type="button" name="Hover">MASK1</button>
+            </div>
+        </div>
+    </div>
+</header>

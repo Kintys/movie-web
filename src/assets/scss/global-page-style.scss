@@ -1,10 +1,6 @@
 @use "sass:math";
-@import "primeng/resources/themes/rhea/theme.css";
-@import "primeng/resources/primeng.css";
-@import "@/assets/fonts/font.scss";
-@import "primeicons/primeicons.css";
-@import "@/assets/scss/buttons.scss";
-$mainColor: #fff;
+@import "../fonts/font.scss";
+$mainColor: #000;
 
 $minWidth: 320;
 
@@ -16,7 +12,7 @@ $containerPadding: 30;
 
 $containerWidth: $maxWidthContainer + $containerPadding;
 
-@import "@/assets/scss/function.scss";
+@import "./function.scss";
 
 $fontFamily: "Poppins";
 $secondFondFamily: "Lato";
@@ -28,7 +24,7 @@ $mobile: toEm(767.98);
 $mobileSmall: toEm(479.98);
 $responsiveType: 1;
 
-@import "@/assets/scss/null.scss";
+@import "./null";
 
 body {
     .lock & {
@@ -36,7 +32,6 @@ body {
         touch-action: none;
         overscroll-behavior: none;
     }
-    background: #070707;
 }
 
 .wrapper {

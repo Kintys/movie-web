@@ -1,0 +1,4 @@
+@import "@asset/scss/function.scss";
+.home {
+    @include adaptiveValue("padding-top", 120, 80);
+}

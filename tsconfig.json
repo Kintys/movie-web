@@ -24,7 +24,8 @@
       "@environment/*": ["./src/environments/*"],
       "@asset/*": ["./src/assets/*"],
       "@pages/*": ["./src/app/pages/*"],
-      "@store/*": ["./src/app/store/*"]
+      "@store/*": ["./src/app/store/*"],
+      "@page/*": ["./src/app/pages/*"]
       // "@core/*": ["./src/app/core/*"],
       // "@shared/*": ["./src/app/shared/*"]
     }
