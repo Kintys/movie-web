@@ -1,17 +1,22 @@
 @import "@asset/scss/function.scss";
+@import "@asset/scss/hover-link.scss";
 .header {
     // .header__container
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    max-height: toRem(130);
+    max-height: toRem(120);
+
+    z-index: 50;
     &__container {
         display: grid;
         padding-top: toRem(36);
         padding-bottom: toRem(36);
         grid-template-columns: auto minmax(toRem(225), toRem(385)) 1fr auto;
         align-items: center;
+        background: rgba(255, 255, 255, 0.053);
+        backdrop-filter: blur(toRem(70));
     }
 
     // .header__logo

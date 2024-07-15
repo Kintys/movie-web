@@ -82,3 +82,7 @@ $containerWidth: $maxWidthContainer + $containerPadding;
     border: $bor;
     color: $col;
 }
+@mixin random-number($min, $max, $property, $unitMeasurement) {
+    $random-value: random($max - $min + 1) + $min - 1;
+    #{$property}: #{$random-value} + #{$unitMeasurement};
+}

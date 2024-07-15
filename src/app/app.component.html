@@ -1,4 +1,8 @@
-<app-header></app-header>
-<main>
-  <router-outlet></router-outlet>
-</main>
+<app-wrapper [animationNumber]="10">
+  <ng-container>
+    <app-header></app-header>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </ng-container>
+</app-wrapper>
