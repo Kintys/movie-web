@@ -13,6 +13,4 @@ import { InputTextModule } from 'primeng/inputtext'
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
-
-}
+export class HeaderComponent {}
