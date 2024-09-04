@@ -3,7 +3,6 @@
         <a routerLink="/" class="header__logo">
             <p-image src="https://firebasestorage.googleapis.com/v0/b/exclusive-shop-c0f66.appspot.com/o/logo%2FLayer_2.svg?alt=media&token=9c98c00a-08a2-4f5f-80ef-19230658ce9a" width="150" height="50"></p-image>
         </a>
-
         <div class="header__search-bar">
             <p-iconField iconPosition="left" class="input">
                 <p-inputIcon styleClass="pi pi-search" />
@@ -12,27 +11,20 @@
         </div>
         <nav class="header__nav-bar nav">
             <ul class="nav__list">
-                <li class="nav__item">
-                    <a class="nav__link">ler.</a>
+                @for (link of headerLinks; track link.id) {
+                <li class="nav__item" [class.nav__item--icon]="link.icon">
+                    <a [routerLink]="link.path" class="nav__link hover-link"> {{link.name}}</a>
                 </li>
-                <li class="nav__item">
-                    <a class="nav__link">ler.</a>
-                </li>
-                <li class="nav__item">
-                    <a class="nav__link">ler.</a>
-                </li>
-                <li class="nav__item">
-                    <a class="nav__link">ler.</a>
-                </li>
-                <li class="nav__item">
-                    <a class="nav__link">ler.</a>
-                </li>
+                }
             </ul>
         </nav>
-        <div class="header__actions">
-            <a routerLink="/">Watch list</a>
-            <p-button pButton label="Submit" class="main-button" />
-            <p-button pButton label="Submit" class="main-button" />
+        <div class="header__watch-list watch-list">
+            <i class="watch-list__icon pi pi-heart-fill"></i>
+            <a routerLink="/" class="watch-list__link ">{{actionsTitles?.watchList}}</a>
+        </div>
+        <div class="header__actions actions">
+            <p-button pButton [label]='actionsTitles!.singIn' class="main-button" />
+            <p-button pButton [label]='actionsTitles!.register' class="main-button main-button--blue" />
         </div>
     </div>
 </header>

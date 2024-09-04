@@ -7,13 +7,12 @@
     left: 0;
     width: 100%;
     max-height: toRem(120);
-
     z-index: 50;
     &__container {
         display: grid;
         padding-top: toRem(36);
         padding-bottom: toRem(36);
-        grid-template-columns: auto minmax(toRem(225), toRem(385)) 1fr auto;
+        grid-template-columns: auto minmax(toRem(225), toRem(385)) auto 1fr auto;
         align-items: center;
         background: rgba(255, 255, 255, 0.053);
         backdrop-filter: blur(toRem(70));
@@ -50,142 +49,92 @@
 
     &__nav-bar {
         ul {
-            max-width: toRem(431);
+            max-width: toRem(500);
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
         }
     }
-
-    // .header__actions
-
-    &__actions {
-        display: flex;
-        column-gap: toRem(11);
+    &__watch-list {
+        justify-content: end;
+        @include adaptiveValue("margin-right", 60, 30);
     }
 }
-
-.button-container-1 {
-    button {
-        width: 101%;
-        height: 100%;
-        font-weight: 300;
-        font-size: 11px;
-        letter-spacing: 1px;
-        font-weight: bold;
-    }
+.actions {
+    display: flex;
+    align-items: center;
+    column-gap: toRem(15);
+    // .actions__watch-list
 }
 
-@-webkit-keyframes ani {
-    from {
-        -webkit-mask-position: 0 0;
-        mask-position: 0 0;
+.watch-list {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: toRem(8);
+    text-transform: capitalize;
+
+    // .watch-list__icon
+    &__icon,
+    &__link {
+        transition: all 0.5s;
     }
 
-    to {
-        -webkit-mask-position: 100% 0;
-        mask-position: 100% 0;
-    }
-}
-
-@keyframes ani {
-    from {
-        -webkit-mask-position: 0 0;
-        mask-position: 0 0;
-    }
-
-    to {
-        -webkit-mask-position: 100% 0;
-        mask-position: 100% 0;
-    }
-}
-
-@-webkit-keyframes ani2 {
-    from {
-        -webkit-mask-position: 100% 0;
-        mask-position: 100% 0;
-    }
-
-    to {
-        -webkit-mask-position: 0 0;
-        mask-position: 0 0;
+    @media (any-hover: hover) {
+        &:hover &__icon {
+            color: red;
+        }
+        &:hover &__link {
+            transform: scale(1.1);
+        }
     }
 }
-
-@keyframes ani2 {
-    from {
-        -webkit-mask-position: 100% 0;
-        mask-position: 100% 0;
-    }
-
-    to {
-        -webkit-mask-position: 0 0;
-        mask-position: 0 0;
-    }
-}
-
 .nav {
     font-family: "Titillium Web";
     text-transform: capitalize;
-    & * {
-        transition: all 0.35s ease;
-    }
-
+    padding-top: toRem(12);
     // .nav__item
 
     &__item {
         display: inline-block;
         list-style: outside none none;
-        margin: 0.5em 1em;
-        padding: 0;
+        margin: 0 1em;
         cursor: pointer;
+        &--icon {
+            &::before {
+                content: "";
+                width: toRem(8);
+                height: toRem(8);
+                background-color: red;
+                border-radius: 50%;
+                animation-name: live;
+                animation-duration: 4s;
+                animation-iteration-count: infinite;
+                margin-right: toRem(5);
+            }
+        }
     }
 
     // .nav__link
 
     &__link {
-        padding: 0.5em 0.8em;
-        color: white;
-        position: relative;
-        text-decoration: none;
-        font-size: toRem(16);
-        &::before,
-        &::after {
-            content: "";
-            height: 14px;
-            width: 14px;
-            position: absolute;
-            transition: all 0.35s ease;
-            opacity: 0;
-        }
-        &::before {
-            content: "";
-            right: 0;
-            top: 0;
-            border-top: toRem(2) solid #3e8914;
-            border-right: toRem(2) solid #2e640f;
-            transform: translate(-100%, 50%);
-        }
-
-        &::after {
-            content: "";
-            left: 0;
-            bottom: 0;
-            border-bottom: toRem(2) solid #2e640f;
-            border-left: toRem(2) solid #3e8914;
-            transform: translate(100%, -50%);
-        }
-        @media (any-hover: hover) {
-            &:hover {
-                color: #3da35d;
-            }
-        }
-        @media (any-hover: hover) {
-            &:hover::before,
-            &:hover::after {
-                transform: translate(0, 0);
-                opacity: 1;
-            }
-        }
+        display: inline-block;
+        font-size: toRem(18);
+        font-weight: 300;
+        color: #bdbaba7d;
+        transition: color 0.2s ease;
+        padding: toRem(3) 0;
+        margin-bottom: toRem(15);
+    }
+}
+@keyframes live {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 1;
     }
 }

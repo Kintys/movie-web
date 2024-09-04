@@ -1,0 +1,156 @@
+@import "@asset/scss/function.scss";
+@import "@asset/scss/hover-link.scss";
+.login-popup {
+    :host ::ng-deep &__dialog {
+        position: relative;
+        max-width: toRem(410);
+        max-height: toRem(658);
+        display: inline-flex;
+        padding: toRem(20) toRem(40);
+        flex-direction: column;
+        align-items: center;
+        gap: toRem(20);
+        border-radius: 28.458px;
+        border: 2.134px $mainColor;
+        background: $mainColor;
+        backdrop-filter: blur(8.893229484558105px);
+        .p-dialog-header,
+        .p-dialog-content,
+        .p-dialog-footer {
+            background-color: transparent;
+        }
+        .p-dialog-header {
+            display: inline-flex;
+            justify-content: center;
+        }
+        .p-dialog-header-icons {
+            position: absolute;
+            top: 2%;
+            right: 3%;
+        }
+        .p-dialog-content {
+            overflow: hidden;
+        }
+        .p-float-label {
+            position: static;
+        }
+        .p-float-label label {
+            padding-left: toRem(5);
+            font-size: inherit;
+            top: 23%;
+        }
+
+        .p-float-label input:focus ~ label,
+        .p-float-label input.p-filled ~ label {
+            top: -1.8rem;
+        }
+        .p-button {
+            padding: toRem(2);
+        }
+    }
+
+    &__wrapper-form {
+        display: flex;
+        flex-direction: column;
+        row-gap: toRem(40);
+    }
+
+    // .login-popup__title
+
+    &__title {
+        font-size: toRem(24);
+        color: $textColor;
+        font-weight: 600;
+        text-transform: capitalize;
+        align-self: center;
+    }
+    // .login-popup__footer
+
+    &__footer {
+    }
+}
+.form {
+    // .form__field
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: toRem(32);
+    &__field {
+        height: toRem(60);
+        padding: toRem(2);
+        position: relative;
+    }
+
+    // .form__input
+
+    &__input {
+        color: $textColor;
+        border-radius: toRem(5);
+        height: toRem(32);
+        padding: toRem(20);
+        width: 100%;
+        border: 0.3px solid #bcbec0;
+    }
+
+    // .form__forget-pass-link
+
+    &__forget-pass-link {
+        color: $textColor;
+        position: relative;
+    }
+
+    // .form__error
+
+    &__error {
+        position: absolute;
+        padding-left: toRem(10);
+        color: red;
+        left: 0;
+        bottom: 20%;
+        opacity: 0;
+        transition: all 0.2s;
+        &--show {
+            bottom: 0;
+            opacity: 1;
+        }
+    }
+
+    // .form__button
+
+    &__button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: toRem(16);
+        width: 100%;
+        text-transform: capitalize;
+    }
+}
+.footer {
+    // .footer__text
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: toRem(30);
+
+    &__text {
+        font-size: toRem(14);
+        font-weight: 600;
+    }
+
+    // .footer__actions
+
+    &__actions {
+    }
+
+    // .footer__subtext
+
+    &__subtext {
+    }
+
+    // .footer__text-link
+
+    &__text-link {
+        color: $textColor;
+    }
+}

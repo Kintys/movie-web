@@ -1,0 +1,39 @@
+<div class="login-popup">
+    <p-dialog header="Title" [(visible)]="open" styleClass="login-popup__dialog">
+        <ng-template pTemplate="header">
+            <p-image src="https://firebasestorage.googleapis.com/v0/b/exclusive-shop-c0f66.appspot.com/o/logo%2FLayer_2.svg?alt=media&token=9c98c00a-08a2-4f5f-80ef-19230658ce9a" width="150" height="50"></p-image>
+        </ng-template>
+        <ng-template pTemplate="content">
+            <div class="login-popup__wrapper-form">
+                <h3 class="login-popup__title">login</h3>
+                <form class="login-popup__form form">
+                    <p-floatLabel class="form__field">
+                        <input class="form__input" id="username" pInputText type="text" [(ngModel)]="value" />
+                        <label class="form__input-label" for="username">Username</label>
+                        <small class="form__error" [class.form__error--show]="error">
+                            Error
+                        </small>
+                    </p-floatLabel>
+                    <p-floatLabel class="form__field">
+                        <input class="form__input" id="username" type="text" />
+                        <label class="form__input-label" for="username">Username</label>
+                        <small class="form__error" [class.form__error--show]="error">
+                            Error
+                        </small>
+                    </p-floatLabel>
+                    <a href="#" class="form__forget-pass-link hover-link">Forgot Password?</a>
+                    <p-button class="form__button main-button main-button--blue">sign in</p-button>
+                </form>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <footer class="login-popup__footer footer">
+                <p class="footer__text">or continue with</p>
+                <div class="footer__actions"><p-button class="footer__button  main-button">Google</p-button><p-button class="footer__button  main-button ">Git</p-button><p-button class="footer__button  main-button">facebook</p-button></div>
+                <p class="footer__subtext">Don’t have an account yet? <a href="#" class="footer__text-link hover-link">Register for free</a></p>
+            </footer>
+        </ng-template>
+    </p-dialog>
+    <button (click)='open =!open' style="padding: 100px;">popup</button>
+    <button (click)='error =!error' style="padding: 100px;">err</button>
+</div>

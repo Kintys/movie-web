@@ -4,8 +4,9 @@
 @import "@/assets/fonts/font.scss";
 @import "primeicons/primeicons.css";
 @import "@/assets/scss/buttons.scss";
-$mainColor: #fff;
 
+$mainColor: rgba(255, 255, 255, 0.053);
+$textColor: #fafafa;
 $minWidth: 320;
 
 $maxWidth: 1920;
@@ -93,4 +94,17 @@ body {
     > * {
         min-width: 0;
     }
+}
+.p-button {
+    background: transparent;
+    border: none;
+    color: white;
+    text-transform: capitalize;
+}
+.p-button:not(:disabled):hover {
+    background-color: transparent;
+    border-color: transparent;
+}
+.p-button-label {
+    padding: toRem(2);
 }
