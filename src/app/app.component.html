@@ -1,7 +1,7 @@
 <div class="wrapper">
-  <app-header></app-header>
+  <app-header (openLoginPopup)=" isOpenloginPopup = $event"></app-header>
   <main>
     <router-outlet></router-outlet>
-    <app-login-popup></app-login-popup>
+    <app-login-popup [openDialog]="isOpenloginPopup" (closeDialog)="isOpenloginPopup = $event"></app-login-popup>
   </main>
 </div>

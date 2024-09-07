@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { RouterLink } from '@angular/router'
 import { ButtonModule } from 'primeng/button'
 import { ImageModule } from 'primeng/image'
@@ -17,6 +17,8 @@ import { v4 as uuidv4 } from 'uuid'
 export class HeaderComponent implements OnInit {
     headerLinks?: HeaderLinkModule[]
     actionsTitles?: ActionTitle
+    @Output() openLoginPopup = new EventEmitter<boolean>()
+
     ngOnInit(): void {
         this.actionsTitles = {
             watchList: 'watch list',
@@ -35,5 +37,8 @@ export class HeaderComponent implements OnInit {
             { id: uuidv4(), name: 'series', path: '/' },
             { id: uuidv4(), name: 'kids', path: '/' }
         ]
+    }
+    onSingIn() {
+        this.openLoginPopup.emit(true)
     }
 }

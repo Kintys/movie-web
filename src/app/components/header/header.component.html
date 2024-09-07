@@ -1,7 +1,7 @@
 <header class="header">
     <div class="header__container">
         <a routerLink="/" class="header__logo">
-            <p-image src="https://firebasestorage.googleapis.com/v0/b/exclusive-shop-c0f66.appspot.com/o/logo%2FLayer_2.svg?alt=media&token=9c98c00a-08a2-4f5f-80ef-19230658ce9a" width="150" height="50"></p-image>
+            <p-image src="https://firebasestorage.googleapis.com/v0/b/exclusive-shop-c0f66.appspot.com/o/logo%2FlogoSmall.svg?alt=media&token=6bb874e8-d166-4e29-9f52-96b760863e4e" width="150" height="50"></p-image>
         </a>
         <div class="header__search-bar">
             <p-iconField iconPosition="left" class="input">
@@ -23,8 +23,7 @@
             <a routerLink="/" class="watch-list__link ">{{actionsTitles?.watchList}}</a>
         </div>
         <div class="header__actions actions">
-            <p-button pButton [label]='actionsTitles!.singIn' class="main-button" />
-            <p-button pButton [label]='actionsTitles!.register' class="main-button main-button--blue" />
+            <p-button (onClick)="onSingIn()" pButton [label]='actionsTitles!.singIn' styleClass="main-button" />
         </div>
     </div>
 </header>

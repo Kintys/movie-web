@@ -12,4 +12,5 @@ import { LoginPopupComponent } from './components/login-popup/login-popup.compon
 })
 export class AppComponent {
     title = 'movie-web'
+    isOpenloginPopup: boolean = false
 }

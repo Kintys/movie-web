@@ -10,8 +10,8 @@
         flex-direction: column;
         align-items: center;
         gap: toRem(20);
-        border-radius: 28.458px;
-        border: 2.134px $mainColor;
+        border-radius: toRem(28.458);
+        border: toRem(2.134) $mainColor;
         background: $mainColor;
         backdrop-filter: blur(8.893229484558105px);
         .p-dialog-header,
@@ -44,8 +44,26 @@
         .p-float-label input.p-filled ~ label {
             top: -1.8rem;
         }
-        .p-button {
-            padding: toRem(2);
+        .form__button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: toRem(16);
+            width: 100%;
+            height: 100%;
+            text-transform: capitalize;
+            button {
+                padding: toRem(3);
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .p-float-label > .ng-invalid.ng-dirty + label {
+            color: #a6a6a6;
         }
     }
 
@@ -63,10 +81,6 @@
         font-weight: 600;
         text-transform: capitalize;
         align-self: center;
-    }
-    // .login-popup__footer
-
-    &__footer {
     }
 }
 .form {
@@ -116,15 +130,6 @@
     }
 
     // .form__button
-
-    &__button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: toRem(16);
-        width: 100%;
-        text-transform: capitalize;
-    }
 }
 .footer {
     // .footer__text
@@ -136,16 +141,6 @@
     &__text {
         font-size: toRem(14);
         font-weight: 600;
-    }
-
-    // .footer__actions
-
-    &__actions {
-    }
-
-    // .footer__subtext
-
-    &__subtext {
     }
 
     // .footer__text-link
