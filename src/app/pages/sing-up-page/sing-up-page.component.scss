@@ -7,14 +7,14 @@
         display: grid;
         justify-items: center;
         justify-content: center;
-        grid-template-columns: minmax(toRem(320), toRem(800));
+        grid-template-columns: minmax(toRem(320), toRem(600));
     }
 
     // .sing-up-page__title
 
     &__title {
         text-transform: capitalize;
-        font-size: toRem(50);
+        font-size: toRem(38);
         letter-spacing: 1.2;
         width: toRem(450);
         text-align: center;
@@ -27,8 +27,14 @@
 
     &__form {
     }
+    &__body {
+        position: relative;
+        overflow: hidden;
+    }
 }
+
 .form {
+    position: relative;
     background: $mainColor;
     border-radius: toRem(28.458);
     backdrop-filter: blur(8.893229484558105px);
@@ -37,8 +43,145 @@
     align-items: center;
     width: 100%;
     padding: toRem(30);
+    overflow: hidden;
+    z-index: 10;
     &__title {
-        font-size: toRem(40);
+        font-size: toRem(20);
         text-transform: capitalize;
+        position: relative;
+        &:not(:last-child) {
+            margin-bottom: toRem(60);
+        }
+    }
+    &::after {
+        content: "";
+        display: block;
+        background-color: #e4db7cc5;
+        width: toRem(398);
+        height: toRem(398);
+        border-radius: 50%;
+        position: absolute;
+        top: 80%;
+        left: 70%;
+        z-index: -1;
+    }
+    &::before {
+        content: "";
+        display: block;
+        background-color: #8a4c7d;
+        width: toRem(398);
+        height: toRem(398);
+        border-radius: 50%;
+        position: absolute;
+        top: -30%;
+        left: -40%;
+        z-index: -1;
+    }
+    .decorate {
+        content: "";
+        display: block;
+        background-color: #0035a7c7;
+        width: toRem(398);
+        height: toRem(398);
+        border-radius: 50%;
+        position: absolute;
+        top: 45%;
+        left: -52%;
+        z-index: -1;
+    }
+    // .form__inputs
+    &__inputs {
+        display: flex;
+        flex-direction: column;
+        row-gap: toRem(10);
+        &:not(:last-child) {
+            margin-bottom: toRem(30);
+        }
+    }
+
+    ::ng-deep &__input {
+        width: toRem(300);
+        height: toRem(35);
+        border-radius: toRem(10);
+        padding: toRem(20);
+        background: rgba(0, 0, 0, 0.2);
+    }
+    ::ng-deep &__password {
+        input {
+            width: toRem(300);
+            height: toRem(35);
+            border-radius: toRem(10);
+            padding: toRem(20);
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .p-icon-wrapper {
+            top: 30%;
+        }
+    }
+    // .form__required
+
+    &__required {
+        color: red;
+    }
+    &__button {
+        width: toRem(250);
+        height: toRem(50);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.password {
+    // .password__title
+
+    ::ng-deep.form__password {
+        .p-password-panel {
+            color: $textColor;
+            background: #000000f8;
+            padding: toRem(10);
+        }
+    }
+    &__title {
+        padding-bottom: toRem(10);
+        border-bottom: toRem(1) solid $textColor;
+        &:not(:last-child) {
+            margin-bottom: toRem(10);
+        }
+    }
+
+    // .password__text
+
+    &__text {
+        padding: toRem(10) 0;
+        border-bottom: toRem(1) solid $textColor;
+        &::after {
+            content: ":";
+            padding-left: toRem(5);
+        }
+    }
+
+    // .password__list
+
+    &__list {
+        padding-top: toRem(10);
+    }
+
+    // .password__item
+
+    &__item {
+        &:not(:last-child) {
+            margin-bottom: toRem(4);
+        }
+        display: flex;
+        align-items: center;
+        column-gap: toRem(5);
+        &::before {
+            content: "";
+            background-color: white;
+            width: toRem(6);
+            height: toRem(6);
+            border-radius: 50%;
+        }
     }
 }

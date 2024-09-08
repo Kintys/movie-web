@@ -1,24 +1,43 @@
 <section class="sing-up-page">
     <div class="sing-up-page__container">
-        <h1 class="sing-up-page__title">Welcome to MovieRoll Cinema</h1>
         <form class="sing-up-page__form form">
-            <h3 class="form__title">sing up</h3>
-            <p-floatLabel>
-                <input id="username" type="text" pInputText />
-                <label for="username">Username</label>
-            </p-floatLabel>
-            <p-floatLabel>
-                <input id="username" type="text" pInputText />
-                <label for="username">Username</label>
-            </p-floatLabel>
-            <p-floatLabel>
-                <input id="username" type="text" pInputText />
-                <label for="username">Username</label>
-            </p-floatLabel>
-            <p-inputMask mask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
-            <p-inputMask mask="(999) 999-9999" placeholder="(999) 999-9999" />
-            <!-- <p-selectButton optionLabel="label" optionValue="value" /> -->
-            <p-treeSelect containerStyleClass="w-full" placeholder="Select Item" />
+            <h2 class="sing-up-page__title">Welcome to MovieRoll Cinema</h2>
+            <h3 class="form__title">Create your account</h3>
+            <div class="form__inputs">
+                <label for="username">Your Name</label>
+                <input id="username" type="text" pInputText class="form__input" />
+            </div>
+            <div class="form__inputs">
+                <label for="useremail">Your Email <span class="form__required">*</span></label>
+                <input id="useremail" type="text" pInputText class="form__input" />
+            </div>
+            <div class="form__inputs">
+                <label for="userpassword">Password <span class="form__required">*</span></label>
+                <p-password [toggleMask]="true" class="password" styleClass="form__password">
+                    <ng-template pTemplate="header">
+                        <h6 class="password__title">Pick a password</h6>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <p class="password__text">Suggestions</p>
+                        <ul class="password__list">
+                            <li class="password__item">At least one lowercase</li>
+                            <li class="password__item">At least one uppercase</li>
+                            <li class="password__item">At least one numeric</li>
+                            <li class="password__item">Minimum 8 characters</li>
+                        </ul>
+                    </ng-template>
+                </p-password>
+            </div>
+            <div class="form__inputs">
+                <label for="userconfpassword">Confirm Password <span class="form__required">*</span></label>
+                <p-password [feedback]="false" styleClass="form__password" />
+            </div>
+            <div class="form__inputs">
+                <label for="userphone">Your phone</label>
+                <p-inputMask id="userphone" mask="+(99) 999-999-999" placeholder="+(99) 999 999-999" styleClass="form__input" />
+            </div>
+            <p-button class="form__button main-button main-button--blue" type="submit">Create</p-button>
+            <span class="decorate"></span>
         </form>
     </div>
 </section>
