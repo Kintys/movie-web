@@ -1,19 +1,22 @@
 <section class="sing-up-page">
     <div class="sing-up-page__container">
-        <form class="sing-up-page__form form">
+        <form [formGroup]="singUpForm" class="sing-up-page__form form" (ngSubmit)="onSubmit()">
             <h2 class="sing-up-page__title">Welcome to MovieRoll Cinema</h2>
             <h3 class="form__title">Create your account</h3>
             <div class="form__inputs">
                 <label for="username">Your Name</label>
-                <input id="username" type="text" pInputText class="form__input" />
+                <input formControlName="name" id="username" type="text" pInputText class="form__input" />
             </div>
             <div class="form__inputs">
                 <label for="useremail">Your Email <span class="form__required">*</span></label>
-                <input id="useremail" type="text" pInputText class="form__input" />
+                <input formControlName="email" id="useremail" type="text" pInputText class="form__input" />
+                <small class="form__error" [class.show]="invalidStatus.email.isShowErrorMassage">
+                    {{invalidStatus.email.textError}}
+                </small>
             </div>
             <div class="form__inputs">
                 <label for="userpassword">Password <span class="form__required">*</span></label>
-                <p-password [toggleMask]="true" class="password" styleClass="form__password">
+                <p-password formControlName="password" [toggleMask]="true" class="password" styleClass="form__password" autocomplete>
                     <ng-template pTemplate="header">
                         <h6 class="password__title">Pick a password</h6>
                     </ng-template>
@@ -30,11 +33,30 @@
             </div>
             <div class="form__inputs">
                 <label for="userconfpassword">Confirm Password <span class="form__required">*</span></label>
-                <p-password [feedback]="false" styleClass="form__password" />
+                <p-password formControlName="repeatPassword" [feedback]="false" styleClass="form__password" autocomplete />
+                <small class="form__error" [class.show]="invalidStatus.confirmPassword.isShowErrorMassage">
+                    {{invalidStatus.confirmPassword.textError}}
+                </small>
             </div>
             <div class="form__inputs">
                 <label for="userphone">Your phone</label>
-                <p-inputMask id="userphone" mask="+(99) 999-999-999" placeholder="+(99) 999 999-999" styleClass="form__input" />
+                <p-inputMask formControlName="phone" id="userphone" mask="+(99) 999-999-999" placeholder="+(99) 999-999-999" styleClass="form__input" />
+            </div>
+            <div class="form__checkbox agreement-checkbox">
+                <div class="agreement-checkbox__body">
+                    <p-checkbox class="agreement-checkbox__input" formControlName="agreement" [binary]="true" />
+                    <p class="agreement-checkbox__text">
+                        I agree to the Privacy Policy. For more information about how we process your personal data, please see our
+                        <a (click)="showAgreementDialog()" class="agreement-checkbox__button hover-link">Privacy Policy</a>
+                    </p>
+                    <small class="agreement-checkbox__error" [class.show-agreement]="invalidStatus.agreement.isShowErrorMassage">
+                        {{invalidStatus.agreement.textError}}
+                    </small>
+                </div>
+
+                <p-dialog header="Privacy Policy" appendTo="body" [modal]="true" [(visible)]="isOpenPrivacyPolicyDialog" styleClass="agreement-checkbox__dialog" [style]="{ width: '50rem',  height: '50rem' }">
+                    <app-privacy-policy></app-privacy-policy>
+                </p-dialog>
             </div>
             <p-button class="form__button main-button main-button--blue" type="submit">Create</p-button>
             <span class="decorate"></span>

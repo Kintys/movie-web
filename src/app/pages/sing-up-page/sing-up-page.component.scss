@@ -1,4 +1,5 @@
 @import "@asset/scss/function.scss";
+@import "@asset/scss/hover-link.scss";
 .sing-up-page {
     // .sing-up-page__container
 
@@ -23,10 +24,6 @@
         }
     }
 
-    // .sing-up-page__form
-
-    &__form {
-    }
     &__body {
         position: relative;
         overflow: hidden;
@@ -93,6 +90,7 @@
     &__inputs {
         display: flex;
         flex-direction: column;
+        position: relative;
         row-gap: toRem(10);
         &:not(:last-child) {
             margin-bottom: toRem(30);
@@ -184,4 +182,54 @@
             border-radius: 50%;
         }
     }
+}
+
+.agreement-checkbox {
+    &:not(:last-child) {
+        margin-bottom: toRem(20);
+    }
+    &__body {
+        max-width: toRem(400);
+        display: flex;
+        column-gap: toRem(10);
+        position: relative;
+    }
+
+    // .agreement-checkbox__input
+
+    &__input {
+        align-self: flex-start;
+    }
+
+    // .agreement-checkbox__text
+
+    &__text {
+        letter-spacing: 1;
+    }
+
+    // .agreement-checkbox__button
+
+    &__button {
+        color: #01febe;
+        cursor: pointer;
+    }
+}
+
+[class*="__error"] {
+    position: absolute;
+    padding-left: toRem(10);
+    color: red;
+    left: 0;
+    bottom: 20%;
+    opacity: 0;
+    transition: all 0.2s;
+}
+
+.show {
+    bottom: -22%;
+    opacity: 1;
+}
+.show-agreement {
+    bottom: -42%;
+    opacity: 1;
 }
