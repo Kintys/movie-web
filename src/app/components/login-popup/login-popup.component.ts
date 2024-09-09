@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { DialogModule } from 'primeng/dialog'
-import { ImageModule } from 'primeng/image'
-import { FloatLabelModule } from 'primeng/floatlabel'
-import { ButtonModule } from 'primeng/button'
-import { FormGroup, FormsModule, Validators, ReactiveFormsModule, FormControl } from '@angular/forms'
-import { InputTextModule } from 'primeng/inputtext'
 import { ClearObservable } from '@/app/shared/clearObserveble'
-import { takeUntil } from 'rxjs'
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
+import { ButtonModule } from 'primeng/button'
+import { DialogModule } from 'primeng/dialog'
+import { FloatLabelModule } from 'primeng/floatlabel'
+import { ImageModule } from 'primeng/image'
+import { InputTextModule } from 'primeng/inputtext'
+import { takeUntil } from 'rxjs'
 
 @Component({
     selector: 'app-login-popup',

@@ -5,6 +5,11 @@ import { SelectButtonModule } from 'primeng/selectbutton'
 import { TreeSelectModule } from 'primeng/treeselect'
 import { PasswordModule } from 'primeng/password'
 import { ButtonModule } from 'primeng/button'
+
+import { ControlKeys, InvalidTextObject } from '@/app/shared/type/sing-up'
+import { CheckboxModule } from 'primeng/checkbox'
+import { DialogModule } from 'primeng/dialog'
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 import {
     AbstractControl,
     FormControl,
@@ -13,10 +18,6 @@ import {
     ValidationErrors,
     Validators
 } from '@angular/forms'
-import { ControlKeys, InvalidTextObject } from '@/app/shared/type/sing-up'
-import { CheckboxModule } from 'primeng/checkbox'
-import { DialogModule } from 'primeng/dialog'
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 @Component({
     selector: 'app-sing-up-page',
     standalone: true,
