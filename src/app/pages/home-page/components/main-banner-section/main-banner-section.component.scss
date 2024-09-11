@@ -1,0 +1,30 @@
+@import "@asset/scss/function.scss";
+@import "swiper/scss/effect-cards";
+.main-banner__container {
+    width: toRem(450);
+}
+swiper-container {
+    width: 240px;
+    height: 320px;
+}
+
+swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+}
+swiper-slide:nth-child(1n) {
+    background-color: rgb(206, 17, 17);
+}
+
+swiper-slide:nth-child(2n) {
+    background-color: rgb(0, 140, 255);
+}
+
+swiper-slide:nth-child(3n) {
+    background-color: rgb(10, 184, 111);
+}

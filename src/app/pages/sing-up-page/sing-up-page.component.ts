@@ -18,6 +18,7 @@ import {
     ValidationErrors,
     Validators
 } from '@angular/forms'
+
 @Component({
     selector: 'app-sing-up-page',
     standalone: true,

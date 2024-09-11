@@ -1,6 +1,6 @@
 import { ClearObservable } from '@/app/shared/clearObserveble'
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { ButtonModule } from 'primeng/button'
 import { DialogModule } from 'primeng/dialog'
