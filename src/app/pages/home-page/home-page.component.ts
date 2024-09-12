@@ -20,10 +20,10 @@ export class HomePageComponent implements OnInit {
     private service: MovieAPIService
   ) {}
   ngOnInit(): void {
-    // this.selectedCat$ = this.store.select(selectCategoryType);
-    // this.selectedCat$.subscribe((val) => {
-    //   this.store.dispatch(loadMoviesListWithCat({ category: val.nowPlaying }));
-    // });
+    this.selectedCat$ = this.store.select(selectCategoryType);
+    this.selectedCat$.subscribe((val) => {
+      this.store.dispatch(loadMoviesListWithCat({ category: val.nowPlaying }));
+    });
     // this.service.getMovieListWitCat(val.now_playing).subscribe((val) => console.log(val))
   }
 }

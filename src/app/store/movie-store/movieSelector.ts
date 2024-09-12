@@ -8,7 +8,23 @@ export const selectMovie = createFeatureSelector<MovieState>('movieState')
 
 export const selectCategoryType = createSelector(selectMovie, (state): CategoryMovies => state.categoryMovies)
 
-export const selectMovieWithCat = createSelector(selectMovie, (state): Movie[] | null => state.moviesListWithCat)
+export const selectMovieGenre = createSelector(selectMovie, (state) => state.movieGenre)
+
+export const selectMovieWithCat = createSelector(selectMovie, selectMovieGenre, (state, genreList): Movie[] => {
+    if (!state.moviesListWithCat || !genreList) return []
+    const newMovieListWithGenre = state.moviesListWithCat.map((movie) => {
+        const updateGenre = movie.genre_ids.map((genreId) => {
+            const genre = genreList.find((g) => g.id === genreId)
+            return genre ? genre.name : genreId
+        })
+        return {
+            ...movie,
+            genre_ids: updateGenre
+        }
+    })
+    return newMovieListWithGenre
+})
+
 // export const selectAllMovieList = createSelector(selectMovie, (state) =>
 //     getAllListWithoutDuplicate(state.allMoviesList)
 // )
@@ -33,8 +49,6 @@ export const selectMovieWithCat = createSelector(selectMovie, (state): Movie[] |
 //         error: state.error
 //     }
 // })
-
-// export const selectMovieGenre = createSelector(selectMovie, (state) => state.movieGenre)
 
 // export const selectFilterParams = createSelector(selectMovie, (state) => state.filterValue)
 

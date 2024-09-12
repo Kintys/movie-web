@@ -1,4 +1,4 @@
-import { Movie } from '@/app/shared/type/movie'
+import { Genre, Movie } from '@/app/shared/type/movie'
 import { createAction, props } from '@ngrx/store'
 
 // MovieList
@@ -9,7 +9,7 @@ export const loadMoviesListWithCat = createAction(
 
 export const loadMoviesListWithCatSuccess = createAction(
     '[MoviesList] Load Movies List With Category Success!',
-    props<{ movies: Movie[] | null }>()
+    props<{ movies: Movie[] | null; genre: Genre[] | null }>()
 )
 
 export const loadMoviesListWithCatFailure = createAction(

@@ -1,0 +1,24 @@
+<div class="movie-description">
+    @if(movieDescription){
+    <header class="movie-description__hat hat-description">
+        <ul class="hat-description__genres-list">
+            @for (genre of movieDescription.genre_ids; track $index) {
+            <li class="hat-description__item">{{genre}}</li>
+            }
+        </ul>
+        <div class="hat-description__info">
+            <span class="hat-description__language">{{movieDescription.original_language | pipeMovieLanguage}}</span>
+            <span class="hat-description__data">{{movieDescription.release_date}}</span>
+        </div>
+    </header>
+    <div class="movie-description__body body-description">
+        <h3 class="body-description__title">{{movieDescription.title}}</h3>
+        <p class="body-description__text">{{movieDescription.overview}}</p>
+        <p-rating [(ngModel)]="movieDescription.vote_average" stars="8" [readonly]="true" [cancel]="false" />
+    </div>
+    <div class="movie-description__actions actions-description">
+        <p-button label="Watch Now" class="actions-description__button main-button main-button--blue"></p-button>
+        <p-button label="Add to Watchlist" class="actions-description__button main-button"></p-button>
+    </div>
+    }
+</div>

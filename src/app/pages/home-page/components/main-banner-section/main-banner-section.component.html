@@ -1,17 +1,12 @@
 <div class="main-banner">
-    <div class="main-banner__container">
-        <swiper-container init="false" #mySwiper (swiperactiveindexchange)="slideChange($event)">
-            <swiper-slide>Slide 1</swiper-slide>
-            <swiper-slide>Slide 2</swiper-slide>
-            <swiper-slide>Slide 3</swiper-slide>
-            <swiper-slide>Slide 4</swiper-slide>
-            <swiper-slide>Slide 5</swiper-slide>
-            <swiper-slide>Slide 6</swiper-slide>
-            <swiper-slide>Slide 7</swiper-slide>
-            <swiper-slide>Slide 8</swiper-slide>
-            <swiper-slide>Slide 9</swiper-slide>
+    @if(movieData){
+    <app-movie-description [movieDescription]="movieData[index]" class="main-banner__description"></app-movie-description>
+    }
+    <div class="main-banner__swiper-banner banner-swiper">
+        <swiper-container init="false" #mySwiper (swiperactiveindexchange)="slideChange($event)" class="banner-swiper__wrapper">
+            @for (movie of movieData; track movie.id) {
+            <swiper-slide class="banner-swiper__slide"><p-image width="100%" [src]="movie.poster_path | prefixUrl" class="banner-swiper__image"></p-image></swiper-slide>
+            }
         </swiper-container>
-        {{index}}
     </div>
-    <!-- appSwiper [config]="swiperConfig" (swiperactiveindexchange)="slideChange($event)" -->
 </div>

@@ -1,10 +1,10 @@
 import { CategoryMovies } from '@/app/services/types/movie-service-type'
-import { Movie } from '@/app/shared/type/movie'
+import { Genre, Movie } from '@/app/shared/type/movie'
 
 export interface MovieState {
     moviesListWithCat: Movie[] | null
     // allMoviesList: MoviePage[] | null
-    //  movieGenre: Genre[] | null
+    movieGenre: Genre[] | null
     // favouriteList: Movie[] | null
     // watchList: Movie[] | null
     categoryMovies: CategoryMovies
@@ -18,7 +18,7 @@ export interface MovieState {
 export const initialState: MovieState = {
     moviesListWithCat: null,
     // allMoviesList: null,
-    // // movieGenre: null,
+    movieGenre: null,
     // filterValue: null,
     // sortValue: null,
     // favouriteList: null,

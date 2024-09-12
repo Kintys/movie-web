@@ -1,0 +1,80 @@
+@import "@asset/scss/function.scss";
+.movie-description {
+    // .movie-description__hat
+
+    &__hat {
+    }
+
+    // .movie-description__body
+
+    &__body {
+    }
+
+    // .movie-description__actions
+
+    &__actions {
+    }
+}
+.hat-description {
+    // .hat-description__genres-list
+    text-transform: uppercase;
+    &:not(:last-child) {
+        margin-bottom: toRem(22);
+    }
+    &__genres-list {
+        display: flex;
+        column-gap: toRem(10);
+        cursor: default;
+        &:not(:last-child) {
+            margin-bottom: toRem(22);
+        }
+    }
+    // .hat-description__item
+    &__item {
+        color: #000f93;
+    }
+
+    // .hat-description__info
+
+    &__info {
+        color: rgba(255, 255, 255, 0.6);
+        display: flex;
+        column-gap: toRem(10);
+    }
+
+    // .hat-description__language
+
+    &__language {
+    }
+
+    // .hat-description__data
+
+    &__data {
+    }
+}
+.body-description {
+    // .body-description__title
+    &:not(:last-child) {
+        margin-bottom: toRem(60);
+    }
+    &__title {
+        text-shadow: 0px toRem(11) toRem(27) #000;
+        font-family: "Ruslan Display";
+        font-size: toRem(61);
+        letter-spacing: toRem(-4.05);
+    }
+
+    // .body-description__text
+
+    &__text {
+        letter-spacing: toRem(2);
+    }
+}
+.actions-description {
+    display: flex;
+    column-gap: toRem(30);
+    &__button {
+        border: toRem(1) solid rgba(255, 255, 255, 0.6);
+        border-radius: toRem(10);
+    }
+}

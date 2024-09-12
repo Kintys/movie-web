@@ -1,4 +1,4 @@
-import { Movie } from '@/app/shared/type/movie'
+import { Genre, Movie } from '@/app/shared/type/movie'
 
 export interface MoviePage {
     dates?: {
@@ -17,4 +17,7 @@ export interface CategoryMovies {
     popular: string
     topRate: string
     upcoming: string
+}
+export interface GenreModule {
+    genres: Genre[]
 }
