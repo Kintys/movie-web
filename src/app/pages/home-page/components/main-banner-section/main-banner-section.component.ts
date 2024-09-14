@@ -28,7 +28,7 @@ export class MainBannerSectionComponent extends ClearObservable implements After
     }
     ngOnInit(): void {
         this.selectedMovie$.pipe(takeUntil(this.destroy$)).subscribe((val) => {
-            this.movieData = val?.slice(0, 3)
+            this.movieData = val
             if (this.movieData) console.log(this.movieData[0])
         })
     }
@@ -36,12 +36,20 @@ export class MainBannerSectionComponent extends ClearObservable implements After
         Object.assign(this.swiper.nativeElement, {
             slidesPerView: 3,
             centeredSlides: true,
-            pagination: { clickable: true, dynamicBullets: true },
-            setWrapperSize: true,
-            width: 1200,
+            speed: 800,
+            navigation: { nextEl: '.banner-swiper__next-arrow', prevEl: '.banner-swiper__prev-arrow' },
+            pagination: {
+                clickable: true,
+                el: '.banner-swiper__bar',
+                bulletClass: 'bullet-some',
+                bulletActiveClass: 'bullet-some__active'
+            },
+            width: 1100,
             effect: 'creative',
+            initialSlide: 1,
             autoplay: {
-                delay: 5000
+                delay: 5000,
+                pauseOnMouseEnter: true
             },
             creativeEffect: {
                 limitProgress: 1,

@@ -5,8 +5,21 @@
     <div class="main-banner__swiper-banner banner-swiper">
         <swiper-container init="false" #mySwiper (swiperactiveindexchange)="slideChange($event)" class="banner-swiper__wrapper">
             @for (movie of movieData; track movie.id) {
-            <swiper-slide class="banner-swiper__slide"><p-image width="100%" [src]="movie.poster_path | prefixUrl" class="banner-swiper__image"></p-image></swiper-slide>
+            <swiper-slide class="banner-swiper__slide"><p-image width="100%" height="100%" [src]="movie.poster_path | prefixUrl" class="banner-swiper__image"></p-image></swiper-slide>
             }
         </swiper-container>
+        <div class="banner-swiper__pagination">
+            <span class="banner-swiper__prev-arrow">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3ZM12.9697 7.71967L8.68934 12L12.9697 16.2803L14.0303 15.2197L10.8112 12L14.0303 8.78033L12.9697 7.71967Z" fill="white" fill-opacity="0.18" />
+                </svg>
+            </span>
+            <div class="banner-swiper__bar"></div><span class="banner-swiper__next-arrow">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM11.0303 7.71967L15.3107 12L11.0303 16.2803L9.96967 15.2197L13.1888 12L9.96967 8.78033L11.0303 7.71967Z" fill="white" fill-opacity="0.18" />
+                </svg>
+            </span>
+        </div>
     </div>
+
 </div>

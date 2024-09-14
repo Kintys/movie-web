@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ruslan+Display&display=swap");
+@font-face {
+  font-family: "Lato";
+  src: url("Lato-Bold.woff2") format("woff2"), url("Lato-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("Lato-Heavy.woff2") format("woff2"), url("Lato-Heavy.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}/*# sourceMappingURL=font.css.map */

@@ -1,20 +1,5 @@
 @import "@asset/scss/function.scss";
-.movie-description {
-    // .movie-description__hat
 
-    &__hat {
-    }
-
-    // .movie-description__body
-
-    &__body {
-    }
-
-    // .movie-description__actions
-
-    &__actions {
-    }
-}
 .hat-description {
     // .hat-description__genres-list
     text-transform: uppercase;
@@ -32,6 +17,9 @@
     // .hat-description__item
     &__item {
         color: #000f93;
+        padding: toRem(6) toRem(12);
+        border: toRem(1) solid #1328e3;
+        border-radius: toRem(11);
     }
 
     // .hat-description__info
@@ -41,19 +29,10 @@
         display: flex;
         column-gap: toRem(10);
     }
-
-    // .hat-description__language
-
-    &__language {
-    }
-
-    // .hat-description__data
-
-    &__data {
-    }
 }
 .body-description {
     // .body-description__title
+    min-height: toRem(280);
     &:not(:last-child) {
         margin-bottom: toRem(60);
     }
@@ -68,6 +47,14 @@
 
     &__text {
         letter-spacing: toRem(2);
+        &:not(:last-child) {
+            margin-bottom: toRem(22);
+        }
+    }
+    :host ::ng-deep &__rating {
+        .p-rating .p-rating-item .p-rating-item-active .p-rating-icon {
+            color: red;
+        }
     }
 }
 .actions-description {

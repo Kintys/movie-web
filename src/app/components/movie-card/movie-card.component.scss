@@ -1,0 +1,48 @@
+@import "@asset/scss/function.scss";
+.movie-card {
+    display: flex;
+    flex-direction: column;
+    row-gap: toRem(29);
+    max-width: toRem(284);
+    max-height: toRem(561);
+    padding: toRem(13) toRem(12) toRem(35) toRem(12);
+    transition: all 0.3s;
+    border-radius: toRem(20);
+    position: relative;
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        transition: all 0.8s;
+        z-index: -1;
+        border-radius: toRem(20);
+    }
+    @media (any-hover: hover) {
+        // &:hover {
+        //     height: calc(100% + 148px);
+        // }
+        &:hover::after {
+            background: #fff;
+            height: calc(100% + 80px);
+            box-shadow: 0px toRem(17) toRem(27) 0px #000;
+        }
+        &:hover &__description {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+    &__photo {
+        border-radius: toRem(20);
+        overflow: hidden;
+    }
+
+    &__description {
+        transition: all 0.3s;
+        opacity: 0;
+        visibility: hidden;
+        color: #000;
+    }
+}

@@ -1,0 +1,8 @@
+<div class="movie-card" [class]="cardClass">
+    <div class="movie-card__photo">
+        <ng-content select=".movie-card__image"></ng-content>
+    </div>
+    <div class="movie-card__description">
+        <ng-content select=".movie-card__text"></ng-content>
+    </div>
+</div>

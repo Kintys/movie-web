@@ -3,33 +3,31 @@
 
 .main-banner {
     display: grid;
-    grid-template-columns: minmax(toRem(300), toRem(480)) auto;
+    grid-template-columns: minmax(toRem(300), toRem(480)) toRem(700);
     min-height: toRem(700);
     justify-content: start;
-    // grid-template-columns: 1fr auto;
-
     padding: toRem(60) toRem(60);
     border-radius: toRem(28.458);
     background: $mainColor;
     backdrop-filter: blur(toRem(8.893229484558105));
-    // .main-banner__description
-
-    &__description {
-    }
+    justify-content: space-between;
 
     // .main-banner__swiper-banner
 
     &__swiper-banner {
+        justify-content: start;
     }
 }
 .banner-swiper {
-    // .banner-swiper__wrapper
     position: relative;
+    overflow: hidden;
 
     &__wrapper {
         position: absolute;
         top: 0;
-        left: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
     }
 
     // .banner-swiper__slide
@@ -41,5 +39,32 @@
     // .banner-swiper__image
 
     &__image {
+        width: 100%;
+        height: 100%;
+    }
+    &__bar {
+        padding-left: toRem(2);
+        padding-right: toRem(4);
+    }
+    &__pagination {
+        position: absolute;
+        bottom: -1%;
+        right: 27%;
+        display: flex;
+        align-items: center;
+    }
+    &__next-arrow,
+    &__prev-arrow {
+        @media (any-hover: hover) {
+            svg path {
+                transition: fill-opacity 0.3s ease;
+            }
+
+            &:hover {
+                svg path {
+                    fill-opacity: 1;
+                }
+            }
+        }
     }
 }

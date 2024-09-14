@@ -110,3 +110,16 @@ body {
 .p-button-label {
     padding: toRem(2);
 }
+.bullet-some {
+    display: inline-flex;
+    margin-left: toRem(4);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    width: 10px;
+    height: 10px;
+    &__active {
+        background-color: white;
+        width: 10px;
+        height: 10px;
+    }
+}
