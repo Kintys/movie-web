@@ -4,3 +4,32 @@
         padding-top: toRem(230);
     }
 }
+.movie-image {
+}
+.movie-text {
+    // .movie-text__title
+
+    &__title {
+        font-size: toRem(18);
+        font-weight: 600;
+        line-height: toRem(24);
+    }
+
+    // .movie-text__genre
+
+    &__genre {
+        color: #000f93;
+        font-size: toRem(14);
+        font-weight: 500;
+        line-height: 171.429%; /* 171.429% */
+    }
+
+    // .movie-text__date
+
+    &__date {
+        color: rgba(0, 0, 0, 0.6);
+        font-size: toRem(14);
+        font-weight: 500;
+        line-height: 171.429%; /* 171.429% */
+    }
+}

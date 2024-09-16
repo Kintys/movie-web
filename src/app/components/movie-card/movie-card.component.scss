@@ -16,7 +16,7 @@
         left: 0;
         height: 100%;
         width: 100%;
-        transition: all 0.8s;
+        transition: all 0.3s;
         z-index: -1;
         border-radius: toRem(20);
     }
@@ -26,7 +26,7 @@
         // }
         &:hover::after {
             background: #fff;
-            height: calc(100% + 80px);
+            height: calc(100% + toRem(30));
             box-shadow: 0px toRem(17) toRem(27) 0px #000;
         }
         &:hover &__description {

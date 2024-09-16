@@ -10,6 +10,7 @@ import { AsyncPipe } from '@angular/common'
 import { Movie } from '@/app/shared/type/movie'
 import { ImageModule } from 'primeng/image'
 import { PrefixUrlPipe } from '@/app/shared/pipes/prefix-url/prefix-url.pipe'
+import { ApiResponse, VideoResult } from '@/app/services/types/movie-service-type'
 
 @Component({
     selector: 'app-home-page',
@@ -22,7 +23,8 @@ export class HomePageComponent implements OnInit {
     selectedCat$!: Observable<any>
     selectedMovie$!: Observable<any>
     movie: Movie | undefined
-    constructor(private readonly store: Store) {}
+    video: ApiResponse | undefined
+    constructor(private readonly store: Store, private movieApi: MovieAPIService) {}
     ngOnInit(): void {
         this.selectedCat$ = this.store.select(selectCategoryType)
         this.selectedCat$.subscribe((val) => {
@@ -30,6 +32,9 @@ export class HomePageComponent implements OnInit {
         })
         // this.service.getMovieListWitCat(val.now_playing).subscribe((val) => console.log(val))
         this.selectedMovie$ = this.store.select(selectMovieWithCat)
-        this.selectedMovie$.subscribe((val) => (this.movie = val[0]))
+        this.selectedMovie$.subscribe((val) => {
+            this.movieApi.getMovieVideo(val[0].id).subscribe((newVal) => (this.video = newVal.results[0])),
+                (this.movie = val[0])
+        })
     }
 }

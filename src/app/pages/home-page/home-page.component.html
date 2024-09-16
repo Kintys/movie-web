@@ -4,15 +4,15 @@
     <div style="padding: 200px 0;">
         @if(movie)
         { <app-movie-card>
-            <ng-container class="movie-card__image">
+            <ng-container class="movie-image">
                 <p-image [src]="movie.poster_path | prefixUrl" width="100%" height="100%"></p-image>
             </ng-container>
-            <ng-container class="movie-card__text">
-                <h3>asdasd</h3>
-                <p>asdasdas</p>
-                <div> <span>dasdasd</span><span>asdasd</span></div>
+            <ng-container class="movie-text">
+                <h3 class="movie-text__title">{{movie.title}}</h3>
+                <p class="movie-text__genre">{{movie.genre_ids[0]}}</p>
+                <p class="movie-text__date">{{movie.release_date}}</p>
             </ng-container>
         </app-movie-card>}
     </div>
-
+    {{video}}
 </div>
