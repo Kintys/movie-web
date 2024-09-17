@@ -10,12 +10,29 @@ import { AsyncPipe } from '@angular/common'
 import { Movie } from '@/app/shared/type/movie'
 import { ImageModule } from 'primeng/image'
 import { PrefixUrlPipe } from '@/app/shared/pipes/prefix-url/prefix-url.pipe'
-import { ApiResponse, VideoResult } from '@/app/services/types/movie-service-type'
+import { ApiResponse } from '@/app/services/types/movie-service-type'
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
+import { FormsModule } from '@angular/forms'
+import { RatingPipe } from '@/app/shared/pipes/movie-rating/rating.pipe'
+import { RatingModule } from 'primeng/rating'
+import { ButtonModule } from 'primeng/button'
+import { MoviesCarouselComponent } from './components/movies-carousel/movies-carousel.component'
 
 @Component({
     selector: 'app-home-page',
     standalone: true,
-    imports: [MainBannerSectionComponent, MovieCardComponent, AsyncPipe, ImageModule, PrefixUrlPipe],
+    imports: [
+        MainBannerSectionComponent,
+        MovieCardComponent,
+        AsyncPipe,
+        ImageModule,
+        FormsModule,
+        RatingPipe,
+        RatingModule,
+        PrefixUrlPipe,
+        ButtonModule,
+        MoviesCarouselComponent
+    ],
     templateUrl: './home-page.component.html',
     styleUrl: './home-page.component.scss'
 })
@@ -24,7 +41,9 @@ export class HomePageComponent implements OnInit {
     selectedMovie$!: Observable<any>
     movie: Movie | undefined
     video: ApiResponse | undefined
-    constructor(private readonly store: Store, private movieApi: MovieAPIService) {}
+    videoKey: string = '' // Ваш ключ для відео
+    safeUrl?: SafeResourceUrl
+    constructor(private readonly store: Store, private movieApi: MovieAPIService, private sanitizer: DomSanitizer) {}
     ngOnInit(): void {
         this.selectedCat$ = this.store.select(selectCategoryType)
         this.selectedCat$.subscribe((val) => {
@@ -32,9 +51,16 @@ export class HomePageComponent implements OnInit {
         })
         // this.service.getMovieListWitCat(val.now_playing).subscribe((val) => console.log(val))
         this.selectedMovie$ = this.store.select(selectMovieWithCat)
-        this.selectedMovie$.subscribe((val) => {
-            this.movieApi.getMovieVideo(val[0].id).subscribe((newVal) => (this.video = newVal.results[0])),
-                (this.movie = val[0])
+    }
+
+    getVideo(id: number) {
+        this.movieApi.getMovieVideo(id).subscribe((val) => {
+            this.video = val
+            if (val) this.safeUrl = this.getSafeUrl(val.results[3].key)
         })
+    }
+    getSafeUrl(key: string): SafeResourceUrl {
+        const url = `https://www.youtube.com/embed/${key}`
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url)
     }
 }

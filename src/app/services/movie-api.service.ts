@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Observable, combineLatest } from 'rxjs'
+import { Observable, combineLatest, switchMap } from 'rxjs'
 import { environment } from '@/environments/environment.development'
 import { Store } from '@ngrx/store'
 import { selectAccountId, selectSessionId } from '../store/user-store/userSelectors'
-import { ApiResponse, CategoryMovies, GenreModule, MoviePage } from './types/movie-service-type'
+import { ApiResponse, CategoryMovies, GenreModule, MoviePage, VideoResult } from './types/movie-service-type'
 @Injectable({
     providedIn: 'root'
 })
@@ -33,7 +33,7 @@ export class MovieAPIService {
         return this.http.get<MoviePage>(`${this.apiUrl}movie/${category}${this.apiKey}`)
     }
 
-    public getMovieVideo(movie_id: number | string): Observable<any> {
+    public getMovieVideo(movie_id: number | string): Observable<ApiResponse> {
         return this.http.get<ApiResponse>(`https://api.themoviedb.org/3/movie/${movie_id}/videos`, {
             headers: this.headers
         })

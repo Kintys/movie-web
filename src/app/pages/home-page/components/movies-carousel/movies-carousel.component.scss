@@ -1,0 +1,133 @@
+@import "@asset/scss/function.scss";
+
+.movie-carousel {
+    display: flex;
+    flex-direction: column;
+    padding-top: toRem(160);
+    // .movie-carousel__header
+
+    &__header {
+    }
+
+    // .movie-carousel__swiper
+
+    &__swiper {
+    }
+}
+.header-carousel {
+    // .header-carousel__headline
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__headline {
+    }
+
+    // .header-carousel__title
+
+    &__title {
+        font-size: toRem(35);
+        font-weight: 600;
+        line-height: 85.714%; /* 85.714% */
+        &:not(:last-child) {
+            margin-bottom: toRem(30);
+        }
+    }
+
+    // .header-carousel__subtitle
+
+    &__subtitle {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: toRem(16);
+        max-width: toRem(584);
+    }
+
+    // .header-carousel__btn-more
+
+    &__btn-more {
+    }
+}
+
+.movie-text {
+    // .movie-text__title
+
+    &__title {
+        font-size: toRem(18);
+        font-weight: 600;
+        line-height: toRem(24);
+    }
+
+    // .movie-text__genre
+
+    &__genre {
+        color: #000f93;
+        font-size: toRem(14);
+        font-weight: 500;
+        line-height: 171.429%; /* 171.429% */
+    }
+
+    // .movie-text__date
+
+    &__date {
+        color: rgba(0, 0, 0, 0.6);
+        font-size: toRem(14);
+        font-weight: 500;
+        line-height: 171.429%; /* 171.429% */
+    }
+}
+.movie-image {
+    // .movie-image__icons
+    position: relative;
+    @media (any-hover: hover) {
+        &:hover &__icons {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+    &__photo {
+        width: 100%;
+        height: 100%;
+    }
+    &__icons {
+        position: absolute;
+        opacity: 0;
+        visibility: hidden;
+        top: 7.843137%; /* 44/561 */
+        left: 0%; /* 12/308 */
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: toRem(0) toRem(20);
+        transition: all 0.3s;
+    }
+
+    &__button {
+        svg {
+            rect {
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+            &:hover rect {
+                opacity: 1;
+            }
+        }
+    }
+}
+:host ::ng-deep .card {
+    .movie-card__photo:hover .movie-image__icons {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+.carousel {
+    // .carouserl__body
+
+    &__body {
+    }
+
+    // .carouserl__slide
+
+    &__slide {
+    }
+}
