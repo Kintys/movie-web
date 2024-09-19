@@ -7,6 +7,9 @@
     // .movie-carousel__header
 
     &__header {
+        &:not(:last-child) {
+            margin-bottom: toRem(46);
+        }
     }
 
     // .movie-carousel__swiper

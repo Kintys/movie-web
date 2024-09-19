@@ -2,10 +2,22 @@
     <div class="home__container">
         <app-main-banner-section></app-main-banner-section>
         <app-movies-carousel></app-movies-carousel>
+        <div style="padding-top:200px; background-color: white;">
+            <!-- <iframe [src]="safeUrl" title="W3Schools Free Online Web Tutorials"></iframe> -->
+            @if(videoKey){
+            <app-movie-player [videoId]="videoKey"></app-movie-player>
+            }
+            <!-- <video width="320" height="240" controls>
+                <source src="https://www.youtube.com/embed/Icnysn53neU" type="video/webm">
+            </video> -->
+
+        </div>
     </div>
+    <!-- @if(movie)
+    { <button (click)="getVideo(movie.id)">click</button>} -->
 
     <!-- @if(movie)
-    { <button (click)="getVideo(movie.id)">click</button>
+    { 
     }
     @if(video)
     {

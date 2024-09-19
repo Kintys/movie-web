@@ -17,6 +17,7 @@ import { RatingPipe } from '@/app/shared/pipes/movie-rating/rating.pipe'
 import { RatingModule } from 'primeng/rating'
 import { ButtonModule } from 'primeng/button'
 import { MoviesCarouselComponent } from './components/movies-carousel/movies-carousel.component'
+import { MoviePlayerComponent } from '../../components/movie-player/movie-player.component'
 
 @Component({
     selector: 'app-home-page',
@@ -31,7 +32,8 @@ import { MoviesCarouselComponent } from './components/movies-carousel/movies-car
         RatingModule,
         PrefixUrlPipe,
         ButtonModule,
-        MoviesCarouselComponent
+        MoviesCarouselComponent,
+        MoviePlayerComponent
     ],
     templateUrl: './home-page.component.html',
     styleUrl: './home-page.component.scss'
@@ -51,16 +53,17 @@ export class HomePageComponent implements OnInit {
         })
         // this.service.getMovieListWitCat(val.now_playing).subscribe((val) => console.log(val))
         this.selectedMovie$ = this.store.select(selectMovieWithCat)
-    }
-
-    getVideo(id: number) {
-        this.movieApi.getMovieVideo(id).subscribe((val) => {
-            this.video = val
-            if (val) this.safeUrl = this.getSafeUrl(val.results[3].key)
+        this.selectedMovie$.subscribe((val) => {
+            if (val) this.movie = val[0]
+            this.movieApi.getMovieVideo(val[0].id).subscribe((val) => {
+                this.videoKey = val.results[3].key
+            })
         })
     }
-    getSafeUrl(key: string): SafeResourceUrl {
-        const url = `https://www.youtube.com/embed/${key}`
-        return this.sanitizer.bypassSecurityTrustResourceUrl(url)
-    }
+
+    getVideo(id: number) {}
+    // getSafeUrl(key: string): SafeResourceUrl {
+    //     const url = `https://www.youtube.com/embed/${key}`
+    //     return this.sanitizer.bypassSecurityTrustResourceUrl(url)
+    // }
 }
