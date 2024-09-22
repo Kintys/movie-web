@@ -1,4 +1,12 @@
 <div class="movie-player">
-    <iframe #player width="560" height="315" [src]="safeUrl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-    </iframe>
+    <youtube-player #iframe [width]="1074" [height]="660" [videoId]="id" [playerVars]="{
+    controls: 0,
+    fs: 0,
+    disablekb: 0,
+    showinfo: 1,
+    rel:0,
+    modestbranding: 1,
+    enablejsapi: 1
+    }" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
 </div>
+<button (click)="showPlay()" style="padding: 30px; background: #000;">click</button>

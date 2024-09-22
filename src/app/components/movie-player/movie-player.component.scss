@@ -1,0 +1,7 @@
+@import "@asset/scss/function.scss";
+.movie-player {
+    border-radius: toRem(20);
+    overflow: hidden;
+    max-width: toRem(1074);
+    min-height: toRem(660);
+}
