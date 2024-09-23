@@ -1,12 +1,11 @@
 import { AfterContentInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 import { YoutubePlayerComponent } from 'ngx-youtube-player'
-
-import { SwiperContainer } from 'swiper/element'
+import { SliderModule } from 'primeng/slider'
 @Component({
     selector: 'app-movie-player',
     standalone: true,
-    imports: [YoutubePlayerComponent],
+    imports: [YoutubePlayerComponent, SliderModule],
     templateUrl: './movie-player.component.html',
     styleUrl: './movie-player.component.scss'
 })
@@ -33,8 +32,12 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
         console.log('player state', event.data)
     }
     showPlay() {
-        // this.player.playVideo()
-        console.log(this.iframe)
+        let iframe = this.player.getIframe()
+        console.log(iframe)
+        let iframeDocument = iframe.contentDocument || iframe.contentWindow?.document
+        console.log(iframeDocument)
+        let iframeBody = iframeDocument?.body
+        console.log(iframeBody)
         // if (this.iframe && this.iframe.nativeElement.contentWindow) {
         //     let iframeDocument =
         //         this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow.document

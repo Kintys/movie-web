@@ -1,7 +1,52 @@
 @import "@asset/scss/function.scss";
+
 .movie-player {
+    position: relative;
+    // .movie-player__controles
     border-radius: toRem(20);
     overflow: hidden;
     max-width: toRem(1074);
     min-height: toRem(660);
+    background: #000;
+
+    &__controller {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+}
+.controller {
+    width: 100%;
+    height: toRem(70);
+    padding: toRem(10);
+    &__play-bar {
+        width: 100%;
+        height: toRem(4);
+        background-color: #fff;
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: calc(100% - var(--progress-position) * 100%);
+            background-color: red;
+        }
+    }
+    // &__running {
+    //     position: relative;
+    //     width: 2%;
+    //     height: inherit;
+    //     background-color: #000f93;
+    //     &::after {
+    //         content: "";
+    //         position: absolute;
+    //         background-color: inherit;
+    //         width: toRem(4);
+    //         height: toRem(16);
+    //         right: 0;
+    //         top: 50%;
+    //         transform: translate(0, -50%);
+    //     }
+    // }
 }

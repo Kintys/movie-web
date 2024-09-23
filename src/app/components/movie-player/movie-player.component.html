@@ -1,12 +1,14 @@
 <div class="movie-player">
-    <youtube-player #iframe [width]="1074" [height]="660" [videoId]="id" [playerVars]="{
+    <!-- <youtube-player [width]="1074" [height]="660" [videoId]="id" [playerVars]="{
     controls: 0,
     fs: 0,
     disablekb: 0,
     showinfo: 1,
     rel:0,
-    modestbranding: 1,
-    enablejsapi: 1
-    }" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
+    }" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player> -->
+    <div class="movie-player__controller  controller">
+        <div class="controller__play-bar">
+        </div>
+    </div>
 </div>
 <button (click)="showPlay()" style="padding: 30px; background: #000;">click</button>
