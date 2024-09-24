@@ -56,7 +56,7 @@ export class HomePageComponent implements OnInit {
         this.selectedMovie$.subscribe((val) => {
             if (val) this.movie = val[0]
             this.movieApi.getMovieVideo(val[1].id).subscribe((val) => {
-                this.videoKey = val.results[3].key
+                this.videoKey = val.results[4].key
             })
         })
     }

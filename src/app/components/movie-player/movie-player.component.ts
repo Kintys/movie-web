@@ -2,6 +2,7 @@ import { AfterContentInit, Component, ElementRef, Input, OnInit, ViewChild } fro
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 import { YoutubePlayerComponent } from 'ngx-youtube-player'
 import { SliderModule } from 'primeng/slider'
+import { BehaviorSubject, Subscription, interval } from 'rxjs'
 @Component({
     selector: 'app-movie-player',
     standalone: true,
@@ -10,10 +11,12 @@ import { SliderModule } from 'primeng/slider'
     styleUrl: './movie-player.component.scss'
 })
 export class MoviePlayerComponent implements OnInit, AfterContentInit {
-    @ViewChild('iframe') iframe!: ElementRef<HTMLIFrameElement>
+    @ViewChild('timeline') timelineContainer: ElementRef | undefined
     safeUrl?: SafeResourceUrl
     @Input() id!: string
     player!: YT.Player
+    currentVideoTime = new BehaviorSubject<string>('0')
+    videoUpdateSubscription!: Subscription
     constructor(private sanitizer: DomSanitizer) {}
     ngOnInit(): void {
         this.safeUrl = this.getSafeUrl(this.id!)
@@ -24,31 +27,33 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url)
     }
     ngAfterContentInit(): void {}
+
+    getCurrentVideoTime() {
+        return `${this.player.getCurrentTime() / this.player.getDuration()}`
+    }
     savePlayer(player: any) {
         this.player = player
         console.log('player instance', player)
     }
-    onStateChange(event: any) {
-        console.log('player state', event.data)
+    // onStateChange(event: any) {
+    //     console.log('player state', event.data)
+    // }
+    showDuring($event: any) {
+        console.log($event)
+        const rect = this.timelineContainer?.nativeElement.getBoundingClientRect()
+        console.log(rect)
+        const time = Math.min(Math.max(0, $event.x - rect.x), rect.width) / rect.width
+        this.player.seekTo(time * this.player.getDuration(), true)
     }
     showPlay() {
-        let iframe = this.player.getIframe()
-        console.log(iframe)
-        let iframeDocument = iframe.contentDocument || iframe.contentWindow?.document
-        console.log(iframeDocument)
-        let iframeBody = iframeDocument?.body
-        console.log(iframeBody)
-        // if (this.iframe && this.iframe.nativeElement.contentWindow) {
-        //     let iframeDocument =
-        //         this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow.document
-
-        //     let button = document.querySelector(
-        //         '.ytp-unmute.ytp-popup.ytp-button.ytp-unmute-animated.ytp-unmute-shrink'
-        //     )
-        //     console.log(button)
-        // if (button) {
-        //     ;(button as HTMLElement).style.display = 'none'
-        // }
-        // }
+        this.player.playVideo()
+        this.currentVideoTime.subscribe((val) => {
+            document.body.style.setProperty('--progress-position', val)
+            console.log(val)
+        })
+        this.videoUpdateSubscription = interval(100).subscribe(() => {
+            const videoTime = this.getCurrentVideoTime()
+            this.currentVideoTime.next(videoTime)
+        })
     }
 }

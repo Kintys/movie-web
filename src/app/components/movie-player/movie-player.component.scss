@@ -18,11 +18,14 @@
 .controller {
     width: 100%;
     height: toRem(70);
-    padding: toRem(10);
     &__play-bar {
         width: 100%;
         height: toRem(4);
         background-color: #fff;
+        position: relative;
+        transition: all 0.3s;
+        margin-left: toRem(10);
+        margin-right: toRem(10);
         &::before {
             content: "";
             position: absolute;
@@ -30,7 +33,7 @@
             left: 0;
             bottom: 0;
             right: calc(100% - var(--progress-position) * 100%);
-            background-color: red;
+            background-color: #000f93;
         }
     }
     // &__running {
