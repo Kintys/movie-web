@@ -5,10 +5,11 @@
     disablekb: 0,
     showinfo: 1,
     rel:0,
-    }" (ready)="savePlayer($event)"></youtube-player>
-    <div #timeline class="movie-player__controller  controller" (click)="showDuring($event)">
-        <div class="controller__play-bar">
+    }" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
+    <div class="movie-player__controller  controller">
+        <div #timeline (click)="showDuring($event)" class="controller__play-bar">
         </div>
     </div>
 </div>
-<button (click)="showPlay()" style="padding: 30px; background: #000;">click</button>
+<button (click)="playVideo()" style="padding: 30px; background: #000;">play</button>
+<button (click)="stopVideo()" style="padding: 30px; background: #000;">stop</button>
