@@ -18,13 +18,15 @@
 .controller {
     width: 100%;
     height: toRem(70);
-    padding: toRem(10);
+    padding: 0 toRem(10);
+
     &__play-bar {
         width: 100%;
         height: toRem(4);
         background-color: #fff;
         position: relative;
         transition: height 0.12s;
+        cursor: pointer;
         &::before,
         &::after {
             content: "";

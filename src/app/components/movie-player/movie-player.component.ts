@@ -22,9 +22,15 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
     bufferUpdateSubscription$!: Subscription
     stopBufferInterval$ = new Subject<void>()
     stopInterval$ = new Subject<void>()
+    isScrubbing: boolean = false
+    leadingZeroFormatter: any
+    timecur?: string
     constructor(private sanitizer: DomSanitizer) {}
     ngOnInit(): void {
         this.safeUrl = this.getSafeUrl(this.id!)
+        this.leadingZeroFormatter = new Intl.NumberFormat('pl-PL', {
+            minimumIntegerDigits: 2
+        })
     }
 
     getSafeUrl(key: string): SafeResourceUrl {
@@ -60,32 +66,44 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
     onStateChange(event: any) {
         this.statusVideo.next(event.data)
     }
-    showDuring($event: any) {
-        const rect = this.timelineContainer?.nativeElement.getBoundingClientRect()
-        const time = Math.min(Math.max(0, $event.x - rect.x), rect.width) / rect.width
-        this.currentVideoTime.next(this.getCurrentVideoTime())
-        this.player.seekTo(time * this.player.getDuration(), true)
-        // this.showVideoTimeLine()
-
-        this.currentVideoTime.subscribe((val) => {
-            this.timelineContainer?.nativeElement.style.setProperty('--progress-position', val)
-        })
+    toggleScrubbing(event: any) {
+        const time = this.currentCoordinate(event)
+        this.isScrubbing = (event.buttons & 1) === 1
+        if (this.isScrubbing) {
+            this.player.pauseVideo()
+        } else {
+            this.player.seekTo(time * this.player.getDuration(), true)
+            this.player.playVideo()
+        }
+    }
+    handleTimelineUpdate(event: any) {
+        const percent = this.currentCoordinate(event).toString()
+        if (this.isScrubbing) {
+            const time = this.player.getCurrentTime()
+            this.timecur = this.formatDuration(time)
+            this.timelineContainer?.nativeElement.style.setProperty('--progress-position', percent)
+            this.currentVideoTime.next(percent.toString())
+        }
     }
     playVideo() {
         this.showVideoTimeLine()
         this.player.playVideo()
     }
+    currentCoordinate(e: any): number {
+        const rect = this.timelineContainer?.nativeElement.getBoundingClientRect()
+        return Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width
+    }
     showVideoTimeLine() {
         this.videoUpdateSubscription = interval(100)
             .pipe(takeUntil(this.stopInterval$))
             .subscribe(() => {
-                console.log(2123)
                 this.currentVideoTime.next(this.getCurrentVideoTime())
             })
         this.currentVideoTime.subscribe((val) => {
             this.timelineContainer?.nativeElement.style.setProperty('--progress-position', val)
         })
     }
+
     stopVideo() {
         this.player.pauseVideo()
         this.stopInterval$.next()
@@ -102,5 +120,16 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
     endVideo() {
         this.stopInterval$.next()
         this.currentVideoTime.next('1')
+    }
+
+    formatDuration(time: number) {
+        const seconds = Math.floor(time % 60)
+        const minutes = Math.floor(time / 60) % 60
+        const hours = Math.floor(time / 3600)
+        if (hours === 0) {
+            return `${minutes}:${this.leadingZeroFormatter.format(seconds)}`
+        } else {
+            return `${hours}:${this.leadingZeroFormatter.format(minutes)}:${this.leadingZeroFormatter.format(seconds)}`
+        }
     }
 }

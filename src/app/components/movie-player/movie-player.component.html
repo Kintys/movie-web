@@ -7,9 +7,10 @@
     rel:0,
     }" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
     <div class="movie-player__controller  controller">
-        <div #timeline (click)="showDuring($event)" class="controller__play-bar">
+        <div #timeline (mouseup)="toggleScrubbing($event)" (mousedown)="toggleScrubbing($event)" (mousemove)="handleTimelineUpdate($event)" class="controller__play-bar">
         </div>
     </div>
 </div>
+{{timecur}}
 <button (click)="playVideo()" style="padding: 30px; background: #000;">play</button>
 <button (click)="stopVideo()" style="padding: 30px; background: #000;">stop</button>
