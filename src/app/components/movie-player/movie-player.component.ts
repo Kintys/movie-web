@@ -1,17 +1,19 @@
 import { AfterContentInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core'
+import { FormsModule } from '@angular/forms'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 import { YoutubePlayerComponent } from 'ngx-youtube-player'
 import { SliderModule } from 'primeng/slider'
-import { BehaviorSubject, Subject, Subscription, interval, takeUntil } from 'rxjs'
+import { BehaviorSubject, Subject, Subscription, interval, takeUntil, throwIfEmpty } from 'rxjs'
 @Component({
     selector: 'app-movie-player',
     standalone: true,
-    imports: [YoutubePlayerComponent, SliderModule],
+    imports: [YoutubePlayerComponent, SliderModule, FormsModule],
     templateUrl: './movie-player.component.html',
     styleUrl: './movie-player.component.scss'
 })
 export class MoviePlayerComponent implements OnInit, AfterContentInit {
     @ViewChild('timeline') timelineContainer: ElementRef | undefined
+    @ViewChild('playerCont') playerContainer: ElementRef | undefined
     safeUrl?: SafeResourceUrl
     @Input() id!: string
     player!: YT.Player
@@ -24,7 +26,9 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
     stopInterval$ = new Subject<void>()
     isScrubbing: boolean = false
     leadingZeroFormatter: any
-    timecur?: string
+    value!: string
+    isFullScreen: boolean = false
+    isShowInfo?: boolean
     constructor(private sanitizer: DomSanitizer) {}
     ngOnInit(): void {
         this.safeUrl = this.getSafeUrl(this.id!)
@@ -39,6 +43,7 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
     }
     ngAfterContentInit(): void {
         this.statusVideo.subscribe((status) => {
+            this.isShowInfo = false
             switch (status) {
                 case 1:
                     this.playVideo()
@@ -51,6 +56,7 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
                     break
                 case 0:
                     this.endVideo()
+                    this.isShowInfo = true
                     break
                 default:
                     break
@@ -68,22 +74,16 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
     }
     toggleScrubbing(event: any) {
         const time = this.currentCoordinate(event)
-        this.isScrubbing = (event.buttons & 1) === 1
-        if (this.isScrubbing) {
-            this.player.pauseVideo()
-        } else {
-            this.player.seekTo(time * this.player.getDuration(), true)
-            this.player.playVideo()
-        }
+        this.player.seekTo(time * this.player.getDuration(), true)
+        this.currentVideoTime.next(`${time}`)
+        this.stopInterval$.next()
     }
     handleTimelineUpdate(event: any) {
-        const percent = this.currentCoordinate(event).toString()
-        if (this.isScrubbing) {
-            const time = this.player.getCurrentTime()
-            this.timecur = this.formatDuration(time)
-            this.timelineContainer?.nativeElement.style.setProperty('--progress-position', percent)
-            this.currentVideoTime.next(percent.toString())
-        }
+        const cursorPositionPercent = this.currentCoordinate(event)
+        const hoverTime = cursorPositionPercent * this.player.getDuration()
+        const currentHoverTime = this.formatDuration(hoverTime)
+        this.timelineContainer?.nativeElement.style.setProperty('--preview-position', cursorPositionPercent)
+        this.timelineContainer?.nativeElement.style.setProperty('--preview-time', `"${currentHoverTime}"`)
     }
     playVideo() {
         this.showVideoTimeLine()
@@ -131,5 +131,22 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
         } else {
             return `${hours}:${this.leadingZeroFormatter.format(minutes)}:${this.leadingZeroFormatter.format(seconds)}`
         }
+    }
+    async fullScreen() {
+        this.isFullScreen = !this.isFullScreen
+        if (this.isFullScreen) {
+            await this.playerContainer?.nativeElement.requestFullscreen()
+            const playerWidth = this.playerContainer?.nativeElement.offsetWidth
+            const playerHeight = this.playerContainer?.nativeElement.offsetHeight
+            this.player.setSize(playerWidth, playerHeight)
+        } else {
+            await document.exitFullscreen()
+            const playerWidth = this.playerContainer?.nativeElement.offsetWidth
+            const playerHeight = this.playerContainer?.nativeElement.offsetHeight
+            this.player.setSize(playerWidth, playerHeight)
+        }
+    }
+    setNewValue(value: string) {
+        this.player.setVolume(parseFloat(value))
     }
 }

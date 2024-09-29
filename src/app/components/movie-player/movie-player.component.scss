@@ -6,13 +6,41 @@
     border-radius: toRem(20);
     overflow: hidden;
     max-width: toRem(1074);
-    min-height: toRem(660);
+    height: toRem(660);
     background: #000;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
 
     &__controller {
         position: absolute;
         bottom: 0;
         left: 0;
+        z-index: 2;
+    }
+    &::before {
+        content: "";
+        background: #000;
+        position: absolute;
+        width: 100%;
+        height: 10%;
+        left: 0;
+        top: 0;
+    }
+    &::after {
+        content: "";
+        background: #000;
+        position: absolute;
+        width: 100%;
+        height: 10%;
+        left: 0;
+        bottom: 0;
+    }
+    &--show-info {
+        &::before,
+        &::after {
+            display: none;
+        }
     }
 }
 .controller {
@@ -45,8 +73,40 @@
             &:hover {
                 height: toRem(8);
             }
+            &:hover .controller__time {
+                opacity: 1;
+            }
+        }
+        // .controller__time
+    }
+    &__time {
+        position: absolute;
+        top: 0;
+        left: calc(var(--preview-position) * 100%);
+        display: flex;
+        opacity: 0;
+        &::before {
+            align-self: center;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: toRem(8);
+            width: toRem(5);
+            background-color: #000;
+        }
+        &::after {
+            content: var(--preview-time);
+            transform: translate(-40%, -120%);
+            background: #000;
+            padding: toRem(5);
+            border-radius: toRem(5);
         }
     }
+    .some-class {
+        display: flex;
+    }
+
     // &__running {
     //     position: relative;
     //     width: 2%;

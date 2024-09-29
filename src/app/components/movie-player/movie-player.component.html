@@ -1,4 +1,4 @@
-<div class="movie-player">
+<div class="movie-player" #playerCont [class.movie-player--show-info]="isShowInfo">
     <youtube-player [width]="1074" [height]="660" [videoId]="id" [playerVars]="{
     controls: 0,
     fs: 0,
@@ -7,10 +7,14 @@
     rel:0,
     }" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
     <div class="movie-player__controller  controller">
-        <div #timeline (mouseup)="toggleScrubbing($event)" (mousedown)="toggleScrubbing($event)" (mousemove)="handleTimelineUpdate($event)" class="controller__play-bar">
+        <div #timeline (click)="toggleScrubbing($event)" (mousemove)="handleTimelineUpdate($event)" class="controller__play-bar">
+            <span class="controller__time"></span>
+        </div>
+        <div class="some-class">
+            <button (click)="playVideo()" style="padding: 20px; background: #000;">play</button>
+            <button (click)="stopVideo()" style="padding: 20px; background: #000;">stop</button>
+            <button (click)="fullScreen()" style="padding:20px; background: #000;">fullScreen</button>
+            <input type="range" min="0" max="100" step="any" [(ngModel)]="value" (input)="setNewValue(value)">
         </div>
     </div>
 </div>
-{{timecur}}
-<button (click)="playVideo()" style="padding: 30px; background: #000;">play</button>
-<button (click)="stopVideo()" style="padding: 30px; background: #000;">stop</button>
