@@ -43,8 +43,9 @@ export class HomePageComponent implements OnInit {
     selectedMovie$!: Observable<any>
     movie: Movie | undefined
     video: ApiResponse | undefined
-    videoKey: string = '' // Ваш ключ для відео
+    videoKey: string = ''
     safeUrl?: SafeResourceUrl
+    nextVideo: string = ''
     constructor(private readonly store: Store, private movieApi: MovieAPIService, private sanitizer: DomSanitizer) {}
     ngOnInit(): void {
         this.selectedCat$ = this.store.select(selectCategoryType)
@@ -57,6 +58,7 @@ export class HomePageComponent implements OnInit {
             if (val) this.movie = val[0]
             this.movieApi.getMovieVideo(val[1].id).subscribe((val) => {
                 this.videoKey = val.results[4].key
+                this.nextVideo = val.results[2].key
             })
         })
     }

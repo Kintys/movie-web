@@ -1,9 +1,9 @@
-import { AfterContentInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core'
+import { AfterContentInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 import { YoutubePlayerComponent } from 'ngx-youtube-player'
 import { SliderModule } from 'primeng/slider'
-import { BehaviorSubject, Subject, Subscription, interval, takeUntil, throwIfEmpty } from 'rxjs'
+import { BehaviorSubject, Observable, Subject, Subscription, delay, interval, takeUntil } from 'rxjs'
 @Component({
     selector: 'app-movie-player',
     standalone: true,
@@ -16,19 +16,22 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
     @ViewChild('playerCont') playerContainer: ElementRef | undefined
     safeUrl?: SafeResourceUrl
     @Input() id!: string
+    @Input() nextId!: string
     player!: YT.Player
-    currentVideoTime = new BehaviorSubject<string>('0')
-    statusVideo = new BehaviorSubject<number>(0)
-    videoUpdateSubscription!: Subscription
+    currentVideoTime$ = new BehaviorSubject<string>('0')
+    statusVideo$ = new BehaviorSubject<number>(0)
+    videoUpdateSubscription$!: Subscription
     bufferCurrentTime$ = new BehaviorSubject<string>('0')
     bufferUpdateSubscription$!: Subscription
     stopBufferInterval$ = new Subject<void>()
     stopInterval$ = new Subject<void>()
     isScrubbing: boolean = false
-    leadingZeroFormatter: any
     value!: string
     isFullScreen: boolean = false
     isShowInfo?: boolean
+    isShowVolume: boolean = false
+    isPlaying: boolean = false
+    leadingZeroFormatter: any
     constructor(private sanitizer: DomSanitizer) {}
     ngOnInit(): void {
         this.safeUrl = this.getSafeUrl(this.id!)
@@ -42,7 +45,7 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url)
     }
     ngAfterContentInit(): void {
-        this.statusVideo.subscribe((status) => {
+        this.statusVideo$.subscribe((status) => {
             this.isShowInfo = false
             switch (status) {
                 case 1:
@@ -70,12 +73,12 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
         this.player = player
     }
     onStateChange(event: any) {
-        this.statusVideo.next(event.data)
+        this.statusVideo$.next(event.data)
     }
     toggleScrubbing(event: any) {
         const time = this.currentCoordinate(event)
         this.player.seekTo(time * this.player.getDuration(), true)
-        this.currentVideoTime.next(`${time}`)
+        this.currentVideoTime$.next(`${time}`)
         this.stopInterval$.next()
     }
     handleTimelineUpdate(event: any) {
@@ -86,6 +89,7 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
         this.timelineContainer?.nativeElement.style.setProperty('--preview-time', `"${currentHoverTime}"`)
     }
     playVideo() {
+        this.isPlaying = true
         this.showVideoTimeLine()
         this.player.playVideo()
     }
@@ -94,17 +98,18 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
         return Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width
     }
     showVideoTimeLine() {
-        this.videoUpdateSubscription = interval(100)
+        this.videoUpdateSubscription$ = interval(100)
             .pipe(takeUntil(this.stopInterval$))
             .subscribe(() => {
-                this.currentVideoTime.next(this.getCurrentVideoTime())
+                this.currentVideoTime$.next(this.getCurrentVideoTime())
             })
-        this.currentVideoTime.subscribe((val) => {
+        this.currentVideoTime$.subscribe((val) => {
             this.timelineContainer?.nativeElement.style.setProperty('--progress-position', val)
         })
     }
 
     stopVideo() {
+        this.isPlaying = false
         this.player.pauseVideo()
         this.stopInterval$.next()
     }
@@ -119,7 +124,7 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
     }
     endVideo() {
         this.stopInterval$.next()
-        this.currentVideoTime.next('1')
+        this.currentVideoTime$.next('1')
     }
 
     formatDuration(time: number) {
@@ -148,5 +153,41 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
     }
     setNewValue(value: string) {
         this.player.setVolume(parseFloat(value))
+    }
+    nextVideo() {
+        this.loadVideoByIdObservable(this.nextId)
+            .pipe(delay(1000))
+            .subscribe({
+                next: () => {
+                    this.playVideo()
+                },
+                error: (err) => {
+                    console.error('Error loading video:', err)
+                }
+            })
+    }
+    move5() {
+        this.player.seekTo(this.player.getCurrentTime() + 5, true)
+    }
+    back5() {
+        this.player.seekTo(this.player.getCurrentTime() - 5, true)
+    }
+    loadVideoByIdObservable(videoId: string): Observable<void> {
+        return new Observable((observer) => {
+            try {
+                this.player.loadVideoById(videoId)
+                observer.next()
+                observer.complete()
+            } catch (error) {
+                observer.error(error)
+            }
+        })
+    }
+    @HostListener('document:click', ['$event'])
+    onClickOutside(event: MouseEvent) {
+        const target = event.target as HTMLElement
+        if (!target.closest('.volume-block') && !target.closest('.volume-block__inp')) {
+            this.isShowVolume = false
+        }
     }
 }

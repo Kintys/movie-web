@@ -47,6 +47,25 @@
     width: 100%;
     height: toRem(70);
     padding: 0 toRem(10);
+    // .controller__body
+
+    &__body {
+        display: flex;
+        padding-top: toRem(10);
+        justify-content: space-between;
+    }
+
+    // .controller__volume
+
+    &__volume {
+    }
+
+    // .controller__midlane
+
+    &__midlane {
+        display: flex;
+        gap: toRem(10);
+    }
 
     &__play-bar {
         width: 100%;
@@ -123,4 +142,32 @@
     //         transform: translate(0, -50%);
     //     }
     // }
+}
+
+.volume-block {
+    // .volumn-block__inp
+    &__btn {
+        position: relative;
+    }
+    &__inp {
+        position: absolute;
+        top: -65%;
+        left: -2%;
+        width: toRem(80);
+        transform: rotateZ(270deg);
+    }
+}
+
+.volume-block {
+    // .volume-block__btn
+
+    &__btn {
+    }
+
+    // .volume-block__inp
+
+    &__inp {
+    }
+}
+.play {
 }

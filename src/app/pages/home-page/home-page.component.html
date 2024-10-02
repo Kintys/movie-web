@@ -5,7 +5,7 @@
         <div style="padding-top:200px;">
             <!-- <iframe [src]="safeUrl" title="W3Schools Free Online Web Tutorials"></iframe> -->
             @if(videoKey){
-            <app-movie-player [id]="videoKey"></app-movie-player>
+            <app-movie-player [id]="videoKey" [nextId]="nextVideo"></app-movie-player>
             }
             <!-- <video width="320" height="240" controls>
                 <source src="https://www.youtube.com/embed/Icnysn53neU" type="video/webm">
