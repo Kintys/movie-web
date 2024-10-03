@@ -126,22 +126,7 @@
         display: flex;
     }
 
-    // &__running {
-    //     position: relative;
-    //     width: 2%;
-    //     height: inherit;
-    //     background-color: #000f93;
-    //     &::after {
-    //         content: "";
-    //         position: absolute;
-    //         background-color: inherit;
-    //         width: toRem(4);
-    //         height: toRem(16);
-    //         right: 0;
-    //         top: 50%;
-    //         transform: translate(0, -50%);
-    //     }
-    // }
+  
 }
 
 .volume-block {
@@ -158,16 +143,3 @@
     }
 }
 
-.volume-block {
-    // .volume-block__btn
-
-    &__btn {
-    }
-
-    // .volume-block__inp
-
-    &__inp {
-    }
-}
-.play {
-}
