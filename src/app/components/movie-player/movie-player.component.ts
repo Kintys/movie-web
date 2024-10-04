@@ -1,9 +1,20 @@
-import { AfterContentInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core'
+import {
+    AfterContentInit,
+    Component,
+    ElementRef,
+    HostListener,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+    ViewChild
+} from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 import { YoutubePlayerComponent } from 'ngx-youtube-player'
 import { SliderModule } from 'primeng/slider'
 import { BehaviorSubject, Observable, Subject, Subscription, delay, interval, takeUntil } from 'rxjs'
+
 @Component({
     selector: 'app-movie-player',
     standalone: true,
@@ -11,12 +22,12 @@ import { BehaviorSubject, Observable, Subject, Subscription, delay, interval, ta
     templateUrl: './movie-player.component.html',
     styleUrl: './movie-player.component.scss'
 })
-export class MoviePlayerComponent implements OnInit, AfterContentInit {
+export class MoviePlayerComponent implements OnInit, AfterContentInit, OnChanges {
     @ViewChild('timeline') timelineContainer: ElementRef | undefined
     @ViewChild('playerCont') playerContainer: ElementRef | undefined
-    safeUrl?: SafeResourceUrl
     @Input() id!: string
     @Input() nextId!: string
+    safeUrl?: SafeResourceUrl
     player!: YT.Player
     currentVideoTime$ = new BehaviorSubject<string>('0')
     statusVideo$ = new BehaviorSubject<number>(0)
@@ -38,6 +49,9 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
         this.leadingZeroFormatter = new Intl.NumberFormat('pl-PL', {
             minimumIntegerDigits: 2
         })
+    }
+    ngOnChanges(changes: SimpleChanges) {
+        this.nextVideo(changes['nextId'].currentValue)
     }
 
     getSafeUrl(key: string): SafeResourceUrl {
@@ -154,8 +168,8 @@ export class MoviePlayerComponent implements OnInit, AfterContentInit {
     setNewValue(value: string) {
         this.player.setVolume(parseFloat(value))
     }
-    nextVideo() {
-        this.loadVideoByIdObservable(this.nextId)
+    nextVideo(movieId: string) {
+        this.loadVideoByIdObservable(movieId)
             .pipe(delay(1000))
             .subscribe({
                 next: () => {

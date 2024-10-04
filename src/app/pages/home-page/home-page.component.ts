@@ -18,6 +18,7 @@ import { RatingModule } from 'primeng/rating'
 import { ButtonModule } from 'primeng/button'
 import { MoviesCarouselComponent } from './components/movies-carousel/movies-carousel.component'
 import { MoviePlayerComponent } from '../../components/movie-player/movie-player.component'
+import { PlayerListComponent } from '../../components/player-list/player-list.component'
 
 @Component({
     selector: 'app-home-page',
@@ -33,7 +34,8 @@ import { MoviePlayerComponent } from '../../components/movie-player/movie-player
         PrefixUrlPipe,
         ButtonModule,
         MoviesCarouselComponent,
-        MoviePlayerComponent
+        MoviePlayerComponent,
+        PlayerListComponent
     ],
     templateUrl: './home-page.component.html',
     styleUrl: './home-page.component.scss'
@@ -44,28 +46,25 @@ export class HomePageComponent implements OnInit {
     movie: Movie | undefined
     video: ApiResponse | undefined
     videoKey: string = ''
+    nextVideo: any
+    nextId: string = ''
     safeUrl?: SafeResourceUrl
-    nextVideo: string = ''
     constructor(private readonly store: Store, private movieApi: MovieAPIService, private sanitizer: DomSanitizer) {}
     ngOnInit(): void {
         this.selectedCat$ = this.store.select(selectCategoryType)
         this.selectedCat$.subscribe((val) => {
             this.store.dispatch(loadMoviesListWithCat({ category: val.nowPlaying }))
         })
-        // this.service.getMovieListWitCat(val.now_playing).subscribe((val) => console.log(val))
         this.selectedMovie$ = this.store.select(selectMovieWithCat)
         this.selectedMovie$.subscribe((val) => {
-            if (val) this.movie = val[0]
-            this.movieApi.getMovieVideo(val[1].id).subscribe((val) => {
-                this.videoKey = val.results[4].key
-                this.nextVideo = val.results[2].key
+            this.movieApi.getMovieVideo(val[3].id).subscribe((val) => {
+                this.videoKey = val.results[1].key
+                this.nextVideo = val.results
             })
         })
     }
 
-    getVideo(id: number) {}
-    // getSafeUrl(key: string): SafeResourceUrl {
-    //     const url = `https://www.youtube.com/embed/${key}`
-    //     return this.sanitizer.bypassSecurityTrustResourceUrl(url)
-    // }
+    getVideo(id: string) {
+        this.nextId = id
+    }
 }
