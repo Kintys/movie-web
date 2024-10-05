@@ -19,6 +19,7 @@ import { ButtonModule } from 'primeng/button'
 import { MoviesCarouselComponent } from './components/movies-carousel/movies-carousel.component'
 import { MoviePlayerComponent } from '../../components/movie-player/movie-player.component'
 import { PlayerListComponent } from '../../components/player-list/player-list.component'
+import { FilterPanelComponent } from '../../components/filter-panel/filter-panel.component'
 
 @Component({
     selector: 'app-home-page',
@@ -35,7 +36,8 @@ import { PlayerListComponent } from '../../components/player-list/player-list.co
         ButtonModule,
         MoviesCarouselComponent,
         MoviePlayerComponent,
-        PlayerListComponent
+        PlayerListComponent,
+        FilterPanelComponent
     ],
     templateUrl: './home-page.component.html',
     styleUrl: './home-page.component.scss'
@@ -49,7 +51,7 @@ export class HomePageComponent implements OnInit {
     nextVideo: any
     nextId: string = ''
     safeUrl?: SafeResourceUrl
-    constructor(private readonly store: Store, private movieApi: MovieAPIService, private sanitizer: DomSanitizer) {}
+    constructor(private readonly store: Store, private movieApi: MovieAPIService) {}
     ngOnInit(): void {
         this.selectedCat$ = this.store.select(selectCategoryType)
         this.selectedCat$.subscribe((val) => {

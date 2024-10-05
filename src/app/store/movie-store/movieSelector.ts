@@ -10,6 +10,7 @@ export const selectCategoryType = createSelector(selectMovie, (state): CategoryM
 
 export const selectMovieGenre = createSelector(selectMovie, (state) => state.movieGenre)
 
+export const selectLanguage = createSelector(selectMovie, (state) => state.languageList)
 export const selectMovieWithCat = createSelector(selectMovie, selectMovieGenre, (state, genreList): Movie[] => {
     if (!state.moviesListWithCat || !genreList) return []
     const newMovieListWithGenre = state.moviesListWithCat.map((movie) => {

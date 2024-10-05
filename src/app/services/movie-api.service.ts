@@ -4,7 +4,14 @@ import { Observable, combineLatest, switchMap } from 'rxjs'
 import { environment } from '@/environments/environment.development'
 import { Store } from '@ngrx/store'
 import { selectAccountId, selectSessionId } from '../store/user-store/userSelectors'
-import { ApiResponse, CategoryMovies, GenreModule, MoviePage, VideoResult } from './types/movie-service-type'
+import {
+    APILanguageResponse,
+    ApiResponse,
+    CategoryMovies,
+    GenreModule,
+    MoviePage,
+    VideoResult
+} from './types/movie-service-type'
 @Injectable({
     providedIn: 'root'
 })
@@ -35,6 +42,11 @@ export class MovieAPIService {
 
     public getMovieVideo(movie_id: number | string): Observable<ApiResponse> {
         return this.http.get<ApiResponse>(`https://api.themoviedb.org/3/movie/${movie_id}/videos`, {
+            headers: this.headers
+        })
+    }
+    public getLanguage(): Observable<APILanguageResponse[]> {
+        return this.http.get<APILanguageResponse[]>(`${this.apiUrl}configuration/languages`, {
             headers: this.headers
         })
     }

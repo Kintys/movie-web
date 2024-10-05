@@ -38,3 +38,8 @@ export interface ApiResponse {
     id: number
     results: VideoResult[]
 }
+export interface APILanguageResponse {
+    iso_639_1: string
+    english_name: string
+    name: string
+}

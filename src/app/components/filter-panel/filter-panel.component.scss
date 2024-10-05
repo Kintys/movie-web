@@ -1,0 +1,57 @@
+@import "@asset/scss/function.scss";
+.filter-panel {
+    // .filter-panel__title
+
+    &__title {
+        font-size: toRem(24);
+        font-weight: 600;
+    }
+
+    // .filter-panel__body
+
+    &__body {
+        max-width: toRem(300);
+        max-height: toRem(1093);
+        border-radius: toRem(20);
+        background: #7c7c7c96;
+        padding: toRem(30);
+        display: grid;
+        row-gap: toRem(43);
+    }
+
+    // .filter-panel__search-bar
+
+    &__search-bar {
+        justify-self: center;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        row-gap: toRem(5);
+        &:not(:last-child) {
+            margin-bottom: toRem(5);
+        }
+        min-height: toRem(60);
+    }
+    &__error {
+        position: absolute;
+        left: 0;
+        bottom: toRem(10);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s;
+        padding-left: toRem(3);
+        color: rgba(255, 0, 0, 0.679);
+        &--show {
+            bottom: 0;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+    // .filter-panel__chackbox-panel
+
+    &__chackbox-panel {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: toRem(15);
+    }
+}

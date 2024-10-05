@@ -1,3 +1,4 @@
+import { APILanguageResponse } from '@/app/services/types/movie-service-type'
 import { Genre, Movie } from '@/app/shared/type/movie'
 import { createAction, props } from '@ngrx/store'
 
@@ -107,9 +108,21 @@ export const loadMoviesListWithCatFailure = createAction(
 
 // //===========================================================
 
-// export const addFilterValue = createAction(
-//     '[AddFilterValue] Add Filter Value',
-//     props<{ filterValue: Genre[] | null }>()
-// )
+export const addFilterValue = createAction(
+    '[AddFilterValue] Add Filter Value',
+    props<{ filterValue: Genre[] | null }>()
+)
 
 // export const addSortValue = createAction('[AddSortValue] Add Sort Value', props<{ sortValue: string | null }>())
+//===========================================================
+
+// export const loadMovieLanguage = createAction('[loadMovieLanguage] Load Movie Language')
+
+// export const loadMovieLanguageSuccess = createAction(
+//     '[loadMovieLanguageSuccess] Load Movie Language Success',
+//     props<{ languageList: APILanguageResponse[] | null }>()
+// )
+// export const loadMovieLanguageFailure = createAction(
+//     '[loadMovieLanguageFailure] Load Movie Language Failure',
+//     props<{ error: any }>()
+// )

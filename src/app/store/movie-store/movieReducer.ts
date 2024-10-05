@@ -1,7 +1,9 @@
 import { createReducer, on } from '@ngrx/store'
 import { initialState } from './movieState'
 import {
-    // addFilterValue,
+    addFilterValue,
+    // loadMovieLanguageFailure,
+    // loadMovieLanguageSuccess,
     // addSortValue,
     // addToFavouriteListFailure,
     // addToFavouriteListSuccess,
@@ -31,7 +33,25 @@ export const MovieReducer = createReducer(
             moviesListWithCat: movies,
             movieGenre: genre
         }
+    }),
+    on(addFilterValue, (state, { filterValue }) => {
+        return {
+            ...state,
+            filterValue: filterValue
+        }
     })
+    // on(loadMovieLanguageSuccess, (state, { languageList }) => {
+    //     return {
+    //         ...state,
+    //         languageList: languageList
+    //     }
+    // }),
+    // on(loadMovieLanguageFailure, (state, { error }) => {
+    //     return {
+    //         ...state,
+    //         error: error
+    //     }
+    // })
 
     // movie list
     // on(loadMoviesListWithCat, (state, { category }) => {
@@ -151,12 +171,7 @@ export const MovieReducer = createReducer(
     //             success: null
     //         }
     //     }),
-    //     on(addFilterValue, (state, { filterValue }) => {
-    //         return {
-    //             ...state,
-    //             filterValue: filterValue
-    //         }
-    //     }),
+
     //     on(addSortValue, (state, { sortValue }) => {
     //         return {
     //             ...state,

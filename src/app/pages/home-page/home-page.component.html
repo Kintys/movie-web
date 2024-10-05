@@ -1,32 +1,14 @@
 <div class="home">
     <div class="home__container">
-        <!-- <app-main-banner-section></app-main-banner-section>
-        <app-movies-carousel></app-movies-carousel> -->
-        <div style="padding-top:200px;">
-            <!-- <iframe [src]="safeUrl" title="W3Schools Free Online Web Tutorials"></iframe> -->
+        <app-main-banner-section></app-main-banner-section>
+        <app-movies-carousel></app-movies-carousel>
+        <!-- <div style="padding-top:200px;">
             @if(videoKey){
             <app-movie-player [id]="videoKey" [nextId]="nextId"></app-movie-player>
             <app-player-list [movieList]="nextVideo" (movieId)="getVideo($event)"></app-player-list>
-
             }
-            {{nextId}}
-            <!-- <video width="320" height="240" controls>
-                <source src="https://www.youtube.com/embed/Icnysn53neU" type="video/webm">
-            </video> -->
-
-        </div>
+        </div> -->
+        <!-- {{nextVideo}} -->
     </div>
-    <!-- @if(movie)
-    { <button (click)="getVideo(movie.id)">click</button>} -->
-
-    <!-- @if(movie)
-    { 
-    }
-    @if(video)
-    {
-    <div style="background-color: white;">
-        <iframe width="560" height="315" [src]="safeUrl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-        </iframe>
-    </div>
-    } -->
+    <app-filter-panel></app-filter-panel>
 </div>
