@@ -1,33 +1,47 @@
-<div class="filter-panel">
-    <h3 class="filter-panel__title">Filter Option</h3>
-    <div class="filter-panel__body">
-        <div class="filter-panel__search-bar"><p-iconField iconPosition="right">
-                <p-inputIcon styleClass="pi pi-search" />
-                <input type="text" pInputText placeholder="Search" [formControl]="inputCheck" />
-            </p-iconField>
-            <small class="filter-panel__error" [ngClass]="{'filter-panel__error--show': isShowError}">
-                {{inputErrorText}}
-            </small>
+<div class="some">
+    <form class="filter-panel" [formGroup]="filterForms">
+        <h3 class="filter-panel__title">Filter Option</h3>
+        <div class="filter-panel__body">
+            <div class="filter-panel__search-bar"><p-iconField iconPosition="right">
+                    <p-inputIcon styleClass="pi pi-search" />
+                    <input type="text" pInputText placeholder="Search" [formControl]="inputCheck" />
+                </p-iconField>
+                <small class="filter-panel__error" [ngClass]="{'filter-panel__error--show': isShowError}">
+                    {{inputErrorText}}
+                </small>
+            </div>
+            <div><p-dropdown [options]="dropdownSort" optionLabel="name" optionValue="code" placeholder="Select a City" formControlName="chooseSortParams" /></div>
+            <div class="filter-panel__chackbox-panel">
+                @if(selectedMovieGenre$ | async; as genreCategory){
+                @for (category of genreCategory; track category.id) {
+                <p-checkbox [label]="category.name" name="group" [value]="category.id" formControlName="chooseGenreParams" />
+                }
+                }
+            </div>
+            <div class="filter-panel__chackbox-panel">
+                @if(radioButtonMovieDate){
+                @for (date of radioButtonMovieDate; track date.id) {
+                <p-radioButton [inputId]="date.id" name="chooseYearParams" [value]="date.value" formControlName="chooseYearParams" />
+                <label [for]="date.id">
+                    {{date.name}}
+                </label>
+                }
+                }
+            </div>
+            <button pButton label="Clear Filter" class="p-button-group" (click)="clearFilter()">
+            </button>
         </div>
-        <div><p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" /></div>
-        <div class="filter-panel__chackbox-panel">
-            @if(selectedMovieGenre$ | async; as genreCategory){
-            @for (category of genreCategory; track category.id) {
-            <p-checkbox [(ngModel)]="chosenGenreCheckboxArr" [label]="category.name" name="group" [value]="category.id" (ngModelChange)="onCategoryChange($event)" />
-            }
-            }
+    </form>
+    <div class="movie">
+        @if(selectedMovieList$ | async; as movieList){
+        @for (movie of movieList; track movie.id){
+        <div class="card">
+            <img [src]="movie.poster_path | prefixUrl" alt="Image">
+            <h6>{{movie.title}}</h6>
+            <p>{{movie.overview}}</p>
         </div>
-        <div class="filter-panel__chackbox-panel">
-            @if(movieDate){
-            @for (date of movieDate; track date.id) {
-            <p-radioButton [inputId]="date.id" [name]="date.name" [value]="date.value" [(ngModel)]="selectedData" (ngModelChange)="onCategoryChange($event)" />
-            <label [for]="date.id">
-                {{date.name}}
-            </label>
-            }
-            }
-        </div>
-        <button pButton label="Clear Filter" class="p-button-group" (click)="clearFilter()">
-        </button>
+        }
+
+        }
     </div>
 </div>

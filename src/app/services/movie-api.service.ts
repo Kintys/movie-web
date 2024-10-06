@@ -12,6 +12,7 @@ import {
     MoviePage,
     VideoResult
 } from './types/movie-service-type'
+import { FilterParamsModule } from '../shared/type/filter'
 @Injectable({
     providedIn: 'root'
 })
@@ -45,11 +46,32 @@ export class MovieAPIService {
             headers: this.headers
         })
     }
-    public getLanguage(): Observable<APILanguageResponse[]> {
-        return this.http.get<APILanguageResponse[]>(`${this.apiUrl}configuration/languages`, {
-            headers: this.headers
-        })
+    public getMovieWithFilterParams(filterParams: FilterParamsModule): Observable<MoviePage> {
+        return this.http.get<MoviePage>(
+            `${
+                this.apiUrl
+            }discover/movie?include_adult=false&include_video=false&language&page=1&primary_release_year=${
+                filterParams.year
+            }&sort_by=${filterParams.sort}&with_genres=${filterParams.genre.join()}`,
+            {
+                headers: this.headers
+            }
+        )
     }
+    public getMovieListWithTextName(searchText: string): Observable<MoviePage> {
+        return this.http.get<MoviePage>(
+            `${this.apiUrl}search/movie?query=${searchText}&include_adult=false&language=en-US&page=1`,
+            {
+                headers: this.headers
+            }
+        )
+    }
+    // public getLanguage(): Observable<APILanguageResponse[]> {
+    //     return this.http.get<APILanguageResponse[]>(`${this.apiUrl}configuration/languages`, {
+    //         headers: this.headers
+    //     })
+    // }
+
     // public getAllMovies(categoryObj: CategoryMovies): Observable<MoviePage[]> {
     //     const observables = []
     //     for (const catName in categoryObj) {

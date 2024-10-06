@@ -3,6 +3,7 @@ import { MovieState } from './movieState'
 // import { isNewFilterObject } from '@/app/shared/helperFunctions'
 import { CategoryMovies } from '@/app/services/types/movie-service-type'
 import { Movie } from '@/app/shared/type/movie'
+import { state } from '@angular/animations'
 
 export const selectMovie = createFeatureSelector<MovieState>('movieState')
 
@@ -25,7 +26,7 @@ export const selectMovieWithCat = createSelector(selectMovie, selectMovieGenre, 
     })
     return newMovieListWithGenre
 })
-
+export const selectAllMovieList = createSelector(selectMovie, (state) => state.allMoviesList)
 // export const selectAllMovieList = createSelector(selectMovie, (state) =>
 //     getAllListWithoutDuplicate(state.allMoviesList)
 // )

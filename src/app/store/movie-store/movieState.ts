@@ -3,7 +3,7 @@ import { Genre, Movie } from '@/app/shared/type/movie'
 
 export interface MovieState {
     moviesListWithCat: Movie[] | null
-    // allMoviesList: MoviePage[] | null
+    allMoviesList: Movie[] | null
     movieGenre: Genre[] | null
     // favouriteList: Movie[] | null
     // watchList: Movie[] | null
@@ -18,7 +18,7 @@ export interface MovieState {
 }
 export const initialState: MovieState = {
     moviesListWithCat: null,
-    // allMoviesList: null,
+    allMoviesList: null,
     movieGenre: null,
     filterValue: null,
     languageList: null,

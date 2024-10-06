@@ -3,7 +3,13 @@ import { catchError, map, mergeMap, switchMap } from 'rxjs/operators'
 import {
     loadMoviesListWithCat,
     loadMoviesListWithCatSuccess,
-    loadMoviesListWithCatFailure
+    loadMoviesListWithCatFailure,
+    loadMovieListWithFilterParams,
+    loadMovieListWithFilterParamsFailure,
+    loadMovieListWithFilterParamsSuccess,
+    findMovieWithSearchText,
+    loadMovieWithSearchTextSuccess,
+    loadMovieWithSearchTextFailure
     // loadMovieLanguage,
     // loadMovieLanguageFailure,
     // loadMovieLanguageSuccess
@@ -32,6 +38,7 @@ import {
 import { forkJoin, of } from 'rxjs'
 import { MovieAPIService } from '@/app/services/movie-api.service'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
+import { loadAccountWithPassAndEmailSuccess } from '../user-store/userActions'
 
 @Injectable()
 export class MovieEffects {
@@ -64,6 +71,7 @@ export class MovieEffects {
                     // }
                 )
             )
+
         // this.actions$.pipe(
         //     ofType(loadMoviesListWithCat),
         //     mergeMap((props) => {
@@ -83,6 +91,50 @@ export class MovieEffects {
         //         )
         //     })
         // )
+    )
+    loadMovieListWithFilterParams$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(loadMovieListWithFilterParams),
+            mergeMap((props) =>
+                this.movieAPIservices.getMovieWithFilterParams(props.filterParams).pipe(
+                    map((movieRes) =>
+                        loadMovieListWithFilterParamsSuccess({
+                            movieList: movieRes.results
+                        })
+                    ),
+                    catchError((err) => {
+                        console.log(err)
+                        return of(
+                            loadMovieListWithFilterParamsFailure({
+                                error: err
+                            })
+                        )
+                    })
+                )
+            )
+        )
+    )
+    findMovieWithSearchText$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(findMovieWithSearchText),
+            mergeMap((props) =>
+                this.movieAPIservices.getMovieListWithTextName(props.searchText).pipe(
+                    map(
+                        (movieRes) =>
+                            loadMovieWithSearchTextSuccess({
+                                movieList: movieRes.results
+                            }),
+                        catchError((err) =>
+                            of(
+                                loadMovieWithSearchTextFailure({
+                                    error: err
+                                })
+                            )
+                        )
+                    )
+                )
+            )
+        )
     )
     // loadMovieLanguage$ = createEffect(() =>
     //     this.actions$.pipe(

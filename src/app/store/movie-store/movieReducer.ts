@@ -2,6 +2,10 @@ import { createReducer, on } from '@ngrx/store'
 import { initialState } from './movieState'
 import {
     addFilterValue,
+    loadMovieListWithFilterParamsFailure,
+    loadMovieListWithFilterParamsSuccess,
+    loadMovieWithSearchTextFailure,
+    loadMovieWithSearchTextSuccess,
     // loadMovieLanguageFailure,
     // loadMovieLanguageSuccess,
     // addSortValue,
@@ -38,6 +42,30 @@ export const MovieReducer = createReducer(
         return {
             ...state,
             filterValue: filterValue
+        }
+    }),
+    on(loadMovieListWithFilterParamsSuccess, (state, { movieList }) => {
+        return {
+            ...state,
+            allMoviesList: movieList
+        }
+    }),
+    on(loadMovieListWithFilterParamsFailure, (state, { error }) => {
+        return {
+            ...state,
+            error: error
+        }
+    }),
+    on(loadMovieWithSearchTextSuccess, (state, { movieList }) => {
+        return {
+            ...state,
+            allMoviesList: movieList
+        }
+    }),
+    on(loadMovieWithSearchTextFailure, (state, { error }) => {
+        return {
+            ...state,
+            error: error
         }
     })
     // on(loadMovieLanguageSuccess, (state, { languageList }) => {

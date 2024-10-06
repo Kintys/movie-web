@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { CheckboxModule } from 'primeng/checkbox'
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { IconFieldModule } from 'primeng/iconfield'
 import { InputIconModule } from 'primeng/inputicon'
 import { InputTextModule } from 'primeng/inputtext'
@@ -8,14 +8,14 @@ import { RadioButtonModule } from 'primeng/radiobutton'
 import { DropdownModule } from 'primeng/dropdown'
 import { ButtonModule } from 'primeng/button'
 import { Store } from '@ngrx/store'
-import { selectMovieGenre } from '@/app/store/movie-store/movieSelector'
+import { selectAllMovieList, selectMovieGenre } from '@/app/store/movie-store/movieSelector'
 import { AsyncPipe, CommonModule } from '@angular/common'
 import { ClearObservable } from '@/app/shared/clearObserveble'
-import { takeUntil } from 'rxjs'
-import { Genre } from '@/app/shared/type/movie'
-import { addFilterValue } from '@/app/store/movie-store/movieActions'
+import { findMovieWithSearchText, loadMovieListWithFilterParams } from '@/app/store/movie-store/movieActions'
 import { v4 as uuidv4 } from 'uuid'
 import { movieDateModule } from '@/app/shared/type/filter'
+import { PrefixUrlPipe } from '@/app/shared/pipes/prefix-url/prefix-url.pipe'
+import { takeUntil } from 'rxjs'
 @Component({
     selector: 'app-filter-panel',
     standalone: true,
@@ -30,7 +30,8 @@ import { movieDateModule } from '@/app/shared/type/filter'
         AsyncPipe,
         ReactiveFormsModule,
         CommonModule,
-        CheckboxModule
+        CheckboxModule,
+        PrefixUrlPipe
     ],
     templateUrl: './filter-panel.component.html',
     styleUrl: './filter-panel.component.scss'
@@ -41,24 +42,16 @@ export class FilterPanelComponent extends ClearObservable implements OnInit {
     inputCheck!: FormControl
     isShowError: boolean = false
     inputErrorText: string = ''
-    selectedData?: string
-    movieDate?: movieDateModule[]
-    chosenGenreCheckboxArr: Genre[] = []
+    radioButtonMovieDate?: movieDateModule[]
+    dropdownSort?: { name: string; code: string }[]
+    selectedMovieList$ = this.store.select(selectAllMovieList)
     selectedMovieGenre$ = this.store.select(selectMovieGenre)
-    cities?: { name: string; code: string }[]
-    selectedCity: any
-    // selectedFilterParams$ = this.store.select(selectFilterParams)
+    filterForms!: FormGroup
     constructor(private store: Store) {
         super()
     }
     ngOnInit(): void {
-        // this.selectedFilterParams$.pipe(takeUntil(this.destroy$)).subscribe((val) => {
-        //     if (val) this.chosenGenreCheckboxArr = val
-        // })
-        this.inputCheck = new FormControl('', [Validators.minLength(3)])
-        this.inputCheck.valueChanges.subscribe((val) => this.getSearchText(val))
-
-        this.movieDate = [
+        this.radioButtonMovieDate = [
             {
                 id: uuidv4(),
                 name: '2024',
@@ -90,29 +83,52 @@ export class FilterPanelComponent extends ClearObservable implements OnInit {
                 value: ''
             }
         ]
-        this.cities = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+        this.dropdownSort = [
+            { name: 'popular up', code: 'popularity.desc' },
+            { name: 'popular down', code: 'popularity.asc' },
+            { name: 'title first', code: 'title.desc' },
+            { name: 'title last', code: 'title.asc' },
+            { name: 'rating up', code: 'vote_average.desc' },
+            { name: 'rating down', code: 'vote_average.asc' }
         ]
+        this.inputCheck = new FormControl('', [Validators.minLength(3)])
+        this.inputCheck.valueChanges.subscribe((val) => this.getSearchText(val))
+        this.filterForms = new FormGroup({
+            chooseSortParams: new FormControl<string>(this.dropdownSort[0].code),
+            chooseYearParams: new FormControl<string>(
+                this.radioButtonMovieDate[this.radioButtonMovieDate.length - 1].value
+            ),
+            chooseGenreParams: new FormControl<string[]>([])
+        })
+        this.filterForms.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((val) => {
+            this.store.dispatch(
+                loadMovieListWithFilterParams({
+                    filterParams: {
+                        sort: val.chooseSortParams,
+                        year: val.chooseYearParams,
+                        genre: val.chooseGenreParams
+                    }
+                })
+            )
+        })
+    }
 
-        this.selectedData = this.movieDate[0].value
-    }
-    onCategoryChange(chosenGenreCheckboxArr: Genre[]): void {
-        console.log(chosenGenreCheckboxArr)
-        // this.store.dispatch(addFilterValue({ filterValue: chosenGenreCheckboxArr }))
-    }
     clearFilter() {
-        this.onCategoryChange((this.chosenGenreCheckboxArr = []))
+        // ;(this.filterForms.value.chooseSortParams = ''),
+        //     (this.filterForms.value.chooseYearParams = ''),
+        //     (this.filterForms.value.chooseGenreParams = [])
     }
     getSearchText(inputText: string) {
         if (!this.inputCheck.valid) {
             this.inputErrorText = 'You need to enter at least 3 characters.'
             this.isShowError = true
         } else {
-            this.searchText.emit(inputText)
+            this.store.dispatch(
+                findMovieWithSearchText({
+                    searchText: inputText
+                })
+            )
+            // this.searchText.emit(inputText)
             this.inputErrorText = ''
             this.isShowError = false
         }

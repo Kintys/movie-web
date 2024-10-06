@@ -27,10 +27,7 @@ export class MainBannerSectionComponent extends ClearObservable implements After
         super()
     }
     ngOnInit(): void {
-        this.selectedMovie$.pipe(takeUntil(this.destroy$)).subscribe((val) => {
-            this.movieData = val
-            if (this.movieData) console.log(this.movieData[0])
-        })
+        this.selectedMovie$.pipe(takeUntil(this.destroy$)).subscribe((val) => (this.movieData = val))
     }
     ngAfterViewInit(): void {
         Object.assign(this.swiper.nativeElement, {

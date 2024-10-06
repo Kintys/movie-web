@@ -1,4 +1,5 @@
 import { APILanguageResponse } from '@/app/services/types/movie-service-type'
+import { FilterParamsModule } from '@/app/shared/type/filter'
 import { Genre, Movie } from '@/app/shared/type/movie'
 import { createAction, props } from '@ngrx/store'
 
@@ -15,6 +16,33 @@ export const loadMoviesListWithCatSuccess = createAction(
 
 export const loadMoviesListWithCatFailure = createAction(
     '[MoviesList] Load Movies List With Category Failure!',
+    props<{ error: any }>()
+)
+export const loadMovieListWithFilterParams = createAction(
+    '[LoadMovieListWithFilterParams], Load Movie List With Filter Params',
+    props<{ filterParams: FilterParamsModule }>()
+)
+export const loadMovieListWithFilterParamsSuccess = createAction(
+    '[LoadMovieListWithFilterParams], Load Movie List With Filter Params Success',
+    props<{ movieList: Movie[] | null }>()
+)
+
+export const loadMovieListWithFilterParamsFailure = createAction(
+    '[LoadMovieListWithFilterParams], Load Movie List With Filter Params Failure',
+    props<{ error: any }>()
+)
+
+export const findMovieWithSearchText = createAction(
+    '[FindMovieWithSearchText], Find Movie With Search Text',
+    props<{ searchText: string }>()
+)
+export const loadMovieWithSearchTextSuccess = createAction(
+    '[LoadMovieWithSearchTextSuccess], Load Movie With Search Text Success',
+    props<{ movieList: Movie[] | null }>()
+)
+
+export const loadMovieWithSearchTextFailure = createAction(
+    '[loadMovieWithSearchTextFailure], Load Movie With Search Text Failure',
     props<{ error: any }>()
 )
 

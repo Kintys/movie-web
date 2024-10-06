@@ -55,3 +55,48 @@
         gap: toRem(15);
     }
 }
+
+.some {
+    display: grid;
+    grid-template-columns: toRem(350) auto;
+}
+.filter-panel {
+    // .filter-panel__title
+
+    &__title {
+    }
+
+    // .filter-panel__body
+
+    &__body {
+    }
+
+    // .filter-panel__search-bar
+
+    &__search-bar {
+    }
+
+    // .filter-panel__error
+
+    &__error {
+    }
+
+    // .filter-panel__chackbox-panel
+
+    &__chackbox-panel {
+    }
+}
+.p-button-group {
+}
+.movie {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    gap: toRem(10);
+}
+.card {
+    width: toRem(200);
+    height: toRem(500);
+    img {
+        width: 100%;
+    }
+}

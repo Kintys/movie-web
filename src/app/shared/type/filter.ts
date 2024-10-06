@@ -3,3 +3,8 @@ export interface movieDateModule {
     name: string
     value: string
 }
+export interface FilterParamsModule {
+    sort: string
+    genre: string[]
+    year: string
+}
