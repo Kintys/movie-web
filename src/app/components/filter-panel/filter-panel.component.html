@@ -32,14 +32,64 @@
             </button>
         </div>
     </form>
+
+
     <div class="movie">
         @if(selectedMovieList$ | async; as movieList){
         @for (movie of movieList; track movie.id){
-        <div class="card">
+        <app-movie-card [cardClass]="'filter-card'">
+            <ng-container class="movie-image">
+                <p-image [src]="movie.poster_path | prefixUrl" width="100%" height="100%"></p-image>
+            </ng-container>
+            <ng-container class="movie-text">
+                <div class="movie-text__body">
+                    <div class="movie-text__descriptions descriptions-block">
+                        <div class="descriptions-block__headline">
+                            <h3 class="descriptions-block__title">{{movie.title}}</h3>
+                            <div class="descriptions-block__subtitle"><span>{{movie.release_date}}</span> <span>{{movie.original_language}}</span>{{movie.vote_count}}</div>
+                        </div>
+                        <p class="descriptions-block__text">{{movie.overview}}</p>
+                        <div class="descriptions-block__genre">
+                            @for(genre of movie.genre_ids; track genre){
+                            <span>{{genre}}</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="movie-text__actions actions-block">
+                        <span class="actions-block__rating">
+                            <p-rating [ngModel]="movie.vote_average | rating" stars="5" [readonly]="true" [cancel]="false">
+                                <ng-template pTemplate="onicon">
+                                    <svg viewBox="0 0 18 18" fill="#D3A81E" width="18">
+                                        <path d="M9.5 14.25l-5.584 2.936 1.066-6.218L.465 6.564l6.243-.907L9.5 0l2.792 5.657 6.243.907-4.517 4.404 1.066 6.218" />
+                                    </svg>
+                                </ng-template>
+                                <ng-template pTemplate="officon">
+                                    <svg id="stars-empty-star" viewBox="0 0 18 18" fill="#F1E8CA" width="18">
+                                        <path d="M9.5 14.25l-5.584 2.936 1.066-6.218L.465 6.564l6.243-.907L9.5 0l2.792 5.657 6.243.907-4.517 4.404 1.066 6.218" />
+                                    </svg>
+                                </ng-template>
+                            </p-rating>
+                        </span>
+                        <div class="actions-block__buttons">
+                            <p-button class="actions-block__add-to-watch">
+                                <svg width="40" height="40" viewBox="0 0 51 51" fill="none">
+                                    <rect x="0.5" y="0.5" width="50" height="50" rx="19.5" stroke="white" />
+                                    <path d="M34.6679 17.848C33.4732 16.6592 31.8787 16.0052 30.1792 16.0052C28.4864 16.0052 26.9032 16.6555 25.7204 17.8367L25.2592 18.2987L24.7979 17.8375C23.6114 16.6525 22.0244 16 20.3272 16C18.6314 16 17.0414 16.6517 15.8489 17.8375C13.3844 20.3012 13.3829 24.322 15.8489 26.8L24.7289 35.668C24.8752 35.8135 25.0672 35.887 25.2592 35.887C25.4512 35.887 25.6424 35.8135 25.7894 35.668L34.6709 26.7977C37.1317 24.325 37.1309 20.3102 34.6679 17.848ZM33.0757 25.21C32.9287 25.357 32.7367 25.4312 32.5439 25.4312C32.3527 25.4312 32.1614 25.3585 32.0144 25.213C31.7212 24.9205 31.7197 24.4465 32.0122 24.1525C33.0007 23.1588 33.0037 21.4863 32.0182 20.5008C31.7249 20.2075 31.7249 19.7335 32.0182 19.4402C32.3114 19.147 32.7854 19.147 33.0787 19.4402C34.6379 20.9995 34.6364 23.6425 33.0757 25.21Z" fill="#FF055F" />
+                                </svg>
+                            </p-button>
+                            <p-button class="actions-block__button main-button main-button--blue">watch now</p-button>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </app-movie-card>
+
+
+        <!-- <div class="card">
             <img [src]="movie.poster_path | prefixUrl" alt="Image">
             <h6>{{movie.title}}</h6>
             <p>{{movie.overview}}</p>
-        </div>
+        </div> -->
         }
 
         }

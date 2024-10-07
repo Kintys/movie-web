@@ -22,8 +22,8 @@ import { FormsModule } from '@angular/forms'
 export class MoviesCarouselComponent implements OnInit {
     @ViewChild('mySwiper') swiper!: ElementRef<SwiperContainer>
     movie: Movie | undefined
-    selectedMovie$?: Observable<any>
     movieData?: Movie[]
+    selectedMovie$?: Observable<any>
     constructor(private readonly store: Store) {}
     ngOnInit(): void {
         this.selectedMovie$ = this.store.select(selectMovieWithCat)

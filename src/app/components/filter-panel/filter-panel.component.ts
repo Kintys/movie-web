@@ -16,10 +16,16 @@ import { v4 as uuidv4 } from 'uuid'
 import { movieDateModule } from '@/app/shared/type/filter'
 import { PrefixUrlPipe } from '@/app/shared/pipes/prefix-url/prefix-url.pipe'
 import { takeUntil } from 'rxjs'
+import { MovieCardComponent } from '../movie-card/movie-card.component'
+import { ImageModule } from 'primeng/image'
+import { RatingModule } from 'primeng/rating'
+import { RatingPipe } from '../../shared/pipes/movie-rating/rating.pipe'
 @Component({
     selector: 'app-filter-panel',
     standalone: true,
     imports: [
+        RatingModule,
+        ImageModule,
         RadioButtonModule,
         DropdownModule,
         FormsModule,
@@ -31,7 +37,9 @@ import { takeUntil } from 'rxjs'
         ReactiveFormsModule,
         CommonModule,
         CheckboxModule,
-        PrefixUrlPipe
+        PrefixUrlPipe,
+        MovieCardComponent,
+        RatingPipe
     ],
     templateUrl: './filter-panel.component.html',
     styleUrl: './filter-panel.component.scss'

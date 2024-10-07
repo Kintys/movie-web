@@ -89,14 +89,181 @@
 .p-button-group {
 }
 .movie {
-    display: grid;
-    grid-template-columns: repeat(5, auto);
-    gap: toRem(10);
+    // display: flex;
+    // flex-direction: column;
 }
-.card {
-    width: toRem(200);
-    height: toRem(500);
-    img {
-        width: 100%;
+// .movie {
+//     display: grid;
+//     grid-template-columns: repeat(5, auto);
+//     gap: toRem(10);
+// }
+// .card {
+//     width: toRem(200);
+//     height: toRem(500);
+//     img {
+//         width: 100%;
+//     }
+// }
+//===========================================================
+
+:host ::ng-deep .filter-card {
+    .movie-card__photo:hover .movie-image__icons {
+        //     opacity: 1;
+        //     visibility: visible;
     }
+    .movie-card {
+        // row-gap: toRem(29);
+        flex-direction: row;
+        width: 100%;
+        max-width: none;
+        max-width: toRem(1180);
+        max-height: toRem(267);
+        padding: toRem(22) toRem(21);
+        // transition: all 0.3s;
+        // border-radius: toRem(20);
+        // position: relative;
+        &::after {
+            // content: "";
+            // position: absolute;
+            // top: 0;
+            // left: 0;
+            // height: 100%;
+            // width: 100%;
+            // transition: all 0.3s;
+            // z-index: -1;
+            // border-radius: toRem(20);
+        }
+        @media (any-hover: hover) {
+            &:hover::after {
+                background: #131313;
+                height: 100%;
+                // box-shadow: 0px toRem(17) toRem(27) 0px #000;
+            }
+            &:hover &__description {
+                // opacity: 1;
+                // visibility: visible;
+            }
+            &:hover &__photo::before {
+                // background: #0000006c;
+            }
+        }
+        &__photo {
+            max-width: toRem(153);
+            max-height: toRem(215);
+            margin-right: toRem(39);
+            // border-radius: toRem(20);
+            // overflow: hidden;
+            // position: relative;
+            &::before {
+                // transition: background 0.3s;
+                // content: "";
+                // position: absolute;
+                // top: 0;
+                // left: 0;
+                // width: 100%;
+                // height: 100%;
+            }
+        }
+
+        &__description {
+            width: inherit;
+            height: inherit;
+            // transition: all 0.3s;
+            // opacity: 0;
+            // visibility: hidden;
+            // color: #000;
+        }
+    }
+}
+.movie-image {
+}
+.movie-text {
+    &__body {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+    }
+
+    // .movie-text__descriptions
+    &__descriptions {
+    }
+
+    // .movie-text__actions
+
+    &__actions {
+    }
+}
+.descriptions-block {
+    color: #fff;
+    // .descriptions-block__headline
+
+    &__headline {
+        display: flex;
+        flex-direction: column;
+        row-gap: toRem(9);
+    }
+
+    // .descriptions-block__title
+
+    &__title {
+        font-size: toRem(20);
+        font-weight: 600;
+    }
+
+    // .descriptions-block__subtitle
+
+    &__subtitle {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    // .descriptions-block__text
+
+    &__text {
+        max-width: toRem(542);
+        font-size: toRem(14);
+    }
+
+    // .descriptions-block__genre
+
+    &__genre {
+        display: flex;
+    }
+}
+.actions-block {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    // .actions-block__rating
+
+    &__rating {
+        &:not(:last-child) {
+            margin-bottom: toRem(35);
+        }
+    }
+
+    // .actions-block__buttons
+
+    &__buttons {
+        display: flex;
+        max-width: toRem(178);
+        column-gap: toRem(8);
+    }
+
+    // .actions-block__add-to-watch
+
+    &__add-to-watch {
+    }
+
+    // .actions-block__button
+
+    &__button {
+        display: flex;
+    }
+}
+.main-button {
+}
+.main-button--blue {
 }

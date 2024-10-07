@@ -11,22 +11,12 @@
             margin-bottom: toRem(46);
         }
     }
-
-    // .movie-carousel__swiper
-
-    &__swiper {
-    }
 }
 .header-carousel {
     // .header-carousel__headline
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    &__headline {
-    }
-
-    // .header-carousel__title
 
     &__title {
         font-size: toRem(35);
@@ -43,11 +33,6 @@
         color: rgba(255, 255, 255, 0.6);
         font-size: toRem(16);
         max-width: toRem(584);
-    }
-
-    // .header-carousel__btn-more
-
-    &__btn-more {
     }
 }
 
@@ -121,16 +106,5 @@
     .movie-card__photo:hover .movie-image__icons {
         opacity: 1;
         visibility: visible;
-    }
-}
-.carousel {
-    // .carouserl__body
-
-    &__body {
-    }
-
-    // .carouserl__slide
-
-    &__slide {
     }
 }
