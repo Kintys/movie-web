@@ -4,6 +4,7 @@ import { Observable, combineLatest, switchMap } from 'rxjs'
 import { environment } from '@/environments/environment.development'
 import { Store } from '@ngrx/store'
 import { selectAccountId, selectSessionId } from '../store/user-store/userSelectors'
+
 import {
     APILanguageResponse,
     ApiResponse,
@@ -13,6 +14,9 @@ import {
     VideoResult
 } from './types/movie-service-type'
 import { FilterParamsModule } from '../shared/type/filter'
+import { Language } from '../shared/pipes/movie-language/module'
+
+export let languageObj: any = []
 @Injectable({
     providedIn: 'root'
 })
@@ -25,6 +29,8 @@ export class MovieAPIService {
         'content-type': 'application/json',
         Authorization: this.apiToken
     }
+    private jsonUrl = '../../assets/language.json'
+
     constructor(private http: HttpClient, private store: Store) {}
 
     // private get accountId() {
@@ -66,11 +72,10 @@ export class MovieAPIService {
             }
         )
     }
-    // public getLanguage(): Observable<APILanguageResponse[]> {
-    //     return this.http.get<APILanguageResponse[]>(`${this.apiUrl}configuration/languages`, {
-    //         headers: this.headers
-    //     })
-    // }
+
+    public getLanguage(): Observable<Language[]> {
+        return this.http.get<Language[]>(this.jsonUrl)
+    }
 
     // public getAllMovies(categoryObj: CategoryMovies): Observable<MoviePage[]> {
     //     const observables = []

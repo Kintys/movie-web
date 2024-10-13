@@ -46,12 +46,12 @@
                     <div class="movie-text__descriptions descriptions-block">
                         <div class="descriptions-block__headline">
                             <h3 class="descriptions-block__title">{{movie.title}}</h3>
-                            <div class="descriptions-block__subtitle"><span>{{movie.release_date}}</span> <span>{{movie.original_language}}</span>{{movie.vote_count}}</div>
+                            <div class="descriptions-block__subtitle"><span>{{movie.release_date}}</span> <span>{{movie.original_language | pipeMovieLanguage| async }}</span>{{movie.vote_count}} viewers</div>
                         </div>
                         <p class="descriptions-block__text">{{movie.overview}}</p>
                         <div class="descriptions-block__genre">
                             @for(genre of movie.genre_ids; track genre){
-                            <span>{{genre}}</span>
+                            <span class="genre-border">{{genre}}</span>
                             }
                         </div>
                     </div>

@@ -24,7 +24,7 @@ export const loadMovieListWithFilterParams = createAction(
 )
 export const loadMovieListWithFilterParamsSuccess = createAction(
     '[LoadMovieListWithFilterParams], Load Movie List With Filter Params Success',
-    props<{ movieList: Movie[] | null }>()
+    props<{ movies: Movie[] | null; genre: Genre[] | null }>()
 )
 
 export const loadMovieListWithFilterParamsFailure = createAction(

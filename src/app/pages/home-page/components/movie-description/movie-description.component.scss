@@ -1,5 +1,5 @@
 @import "@asset/scss/function.scss";
-
+@import "@asset/scss/genre-border.scss";
 .hat-description {
     // .hat-description__genres-list
     text-transform: uppercase;
@@ -13,13 +13,6 @@
         &:not(:last-child) {
             margin-bottom: toRem(22);
         }
-    }
-    // .hat-description__item
-    &__item {
-        color: #000f93;
-        padding: toRem(6) toRem(12);
-        border: toRem(1) solid #1328e3;
-        border-radius: toRem(11);
     }
 
     // .hat-description__info

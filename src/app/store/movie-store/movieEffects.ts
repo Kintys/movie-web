@@ -95,15 +95,18 @@ export class MovieEffects {
     loadMovieListWithFilterParams$ = createEffect(() =>
         this.actions$.pipe(
             ofType(loadMovieListWithFilterParams),
-            mergeMap((props) =>
-                this.movieAPIservices.getMovieWithFilterParams(props.filterParams).pipe(
-                    map((movieRes) =>
+            switchMap((props) =>
+                forkJoin([
+                    this.movieAPIservices.getMovieWithFilterParams(props.filterParams),
+                    this.movieAPIservices.getMovieGenre()
+                ]).pipe(
+                    map(([movieRes, genreRes]) =>
                         loadMovieListWithFilterParamsSuccess({
-                            movieList: movieRes.results
+                            movies: movieRes.results,
+                            genre: genreRes.genres
                         })
                     ),
                     catchError((err) => {
-                        console.log(err)
                         return of(
                             loadMovieListWithFilterParamsFailure({
                                 error: err

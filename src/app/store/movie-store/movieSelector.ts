@@ -26,7 +26,20 @@ export const selectMovieWithCat = createSelector(selectMovie, selectMovieGenre, 
     })
     return newMovieListWithGenre
 })
-export const selectAllMovieList = createSelector(selectMovie, (state) => state.allMoviesList)
+export const selectAllMovieList = createSelector(selectMovie, selectMovieGenre, (state, genreList): Movie[] => {
+    if (!state.moviesListWithCat || !genreList) return []
+    const newMovieListWithGenre = state.allMoviesList?.map((movie) => {
+        const updateGenre = movie.genre_ids.map((genreId) => {
+            const genre = genreList.find((g) => g.id === genreId)
+            return genre ? genre.name : genreId
+        })
+        return {
+            ...movie,
+            genre_ids: updateGenre
+        }
+    })
+    return newMovieListWithGenre ?? []
+})
 // export const selectAllMovieList = createSelector(selectMovie, (state) =>
 //     getAllListWithoutDuplicate(state.allMoviesList)
 // )

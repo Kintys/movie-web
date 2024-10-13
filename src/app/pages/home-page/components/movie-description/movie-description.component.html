@@ -3,11 +3,11 @@
     <header class="movie-description__hat hat-description">
         <ul class="hat-description__genres-list">
             @for (genre of movieDescription.genre_ids; track $index) {
-            <li class="hat-description__item">{{genre}}</li>
+            <li class="hat-description__item genre-border">{{genre}}</li>
             }
         </ul>
         <div class="hat-description__info">
-            <span class="hat-description__language">{{movieDescription.original_language | pipeMovieLanguage}}</span>
+            <span class="hat-description__language">{{movieDescription.original_language | pipeMovieLanguage | async}}</span>
             <span class="hat-description__data">{{movieDescription.release_date}}</span>
         </div>
     </header>

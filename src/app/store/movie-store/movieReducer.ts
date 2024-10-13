@@ -44,10 +44,12 @@ export const MovieReducer = createReducer(
             filterValue: filterValue
         }
     }),
-    on(loadMovieListWithFilterParamsSuccess, (state, { movieList }) => {
+    on(loadMovieListWithFilterParamsSuccess, (state, { movies, genre }) => {
+        console.log(movies)
         return {
             ...state,
-            allMoviesList: movieList
+            allMoviesList: movies,
+            movieGenre: genre
         }
     }),
     on(loadMovieListWithFilterParamsFailure, (state, { error }) => {

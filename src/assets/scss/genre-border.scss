@@ -1,0 +1,14 @@
+@import "@asset/scss/function.scss";
+.genre-border {
+    color: #000f93;
+    padding: toRem(6) toRem(12);
+    border: toRem(1) solid #1328e3;
+    border-radius: toRem(11);
+    transition: all 0.3s;
+    @media (any-hover: hover) {
+        &:hover {
+            background: #000f93;
+            color: #fafafa;
+        }
+    }
+}

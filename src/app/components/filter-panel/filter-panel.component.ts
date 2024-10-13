@@ -20,10 +20,13 @@ import { MovieCardComponent } from '../movie-card/movie-card.component'
 import { ImageModule } from 'primeng/image'
 import { RatingModule } from 'primeng/rating'
 import { RatingPipe } from '../../shared/pipes/movie-rating/rating.pipe'
+import { MovieAPIService } from '@/app/services/movie-api.service'
+import { MovieLanguagePipe } from '@/app/shared/pipes/movie-language/movie-language.pipe'
 @Component({
     selector: 'app-filter-panel',
     standalone: true,
     imports: [
+        MovieLanguagePipe,
         RatingModule,
         ImageModule,
         RadioButtonModule,
@@ -59,6 +62,7 @@ export class FilterPanelComponent extends ClearObservable implements OnInit {
         super()
     }
     ngOnInit(): void {
+        this.selectedMovieList$.subscribe((next) => console.log())
         this.radioButtonMovieDate = [
             {
                 id: uuidv4(),
